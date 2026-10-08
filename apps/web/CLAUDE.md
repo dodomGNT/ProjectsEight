@@ -44,7 +44,7 @@ Gaya tambahan yang boleh: `italic`, `underline underline-offset-4` (link di para
 ## Font
 
 - `font-sans` = **Atkinson Hyperlegible Next** (default, tidak perlu ditulis)
-- `font-mono` = **Geist Mono**, hanya untuk kode dan angka teknis
+- `font-mono` = **Atkinson Hyperlegible Mono**, hanya untuk kode dan angka teknis
 - Jangan memuat font lain lewat `next/font`, kecuali di halaman pembanding `/fonts`.
 
 ## Warna
@@ -67,7 +67,32 @@ Dilarang: hex/rgb langsung (`#fff`, `bg-[#123456]`), palet bawaan Tailwind (`zin
 - Spasi (padding, margin, gap) pakai skala Tailwind (kelipatan 4px: `p-4` = 16px). Utamakan `1 2 3 4 6 8 12 16 24`; `0.5` dan `1.5` untuk jarak sangat kecil. Nilai arbitrary seperti `p-[13px]` dilarang.
 - Lebar konten halaman: `mx-auto max-w-6xl px-4 md:px-8`.
 - Sudut: `rounded-md` chip/kode kecil · `rounded-lg` tombol & input · `rounded-xl` / `rounded-2xl` card & panel · `rounded-full` badge/avatar.
-- Arbitrary value untuk layout (mis. `grid-cols-[260px_1fr]`) boleh. Untuk tipografi dan warna tidak boleh.
+- Arbitrary value untuk layout (mis. `md:grid-cols-[260px_1fr]`) boleh, asal aman di ponsel (lihat Responsif). Untuk tipografi dan warna tidak boleh.
+
+## Responsif (ponsel dan desktop)
+
+Setiap halaman dan komponen **wajib** tampil benar dari lebar **360px** (ponsel kecil) sampai desktop.
+
+**Mobile-first.** Class tanpa prefix berlaku untuk ponsel; tampilan lebih lebar ditambah dengan breakpoint Tailwind: `sm:` 640px · `md:` 768px · `lg:` 1024px · `xl:` 1280px.
+
+```tsx
+<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">   {/* 1 → 2 → 3 kolom */}
+<div className="flex flex-col gap-3 sm:flex-row">            {/* bertumpuk → berjajar */}
+<section className="py-16 md:py-24">                          {/* jarak section */}
+```
+
+Aturan:
+- **Tidak boleh ada scroll horizontal** pada halaman. Konten lebar (tabel, kode, daftar tab) dibungkus `overflow-x-auto`.
+- Lebar elemen: `w-full` + `max-w-*`, bukan lebar tetap. `w-[500px]` hanya boleh dengan breakpoint (`md:w-[500px]`).
+- Kolom grid ber-px (`grid-cols-[260px_1fr]`) hanya dengan breakpoint; di ponsel satu kolom.
+- Anak flex/grid yang berisi teks panjang diberi `min-w-0`; teks panjang tanpa spasi (URL, email) diberi `break-words` atau `truncate`.
+- Baris tombol diberi `flex-wrap` supaya turun ke baris berikut di layar sempit.
+- **Target sentuh minimal 24px** tingginya (link, ikon, checkbox termasuk label-nya). Tombol & input sudah 40px. Link teks di navigasi diberi `py-2`.
+- Ukuran teks: `text-display` sudah menyesuaikan layar. Judul lain boleh berganti token per breakpoint (`text-h2 md:text-h1`), tetap tanpa ukuran arbitrary.
+- Interaksi yang hanya muncul saat `hover:` harus punya cara lain di layar sentuh (tetap terlihat, atau lewat tap/focus).
+- Gambar: `next/image` dengan `sizes`, atau `max-w-full h-auto`.
+
+Lebar tetap dan kolom grid ber-px tanpa breakpoint **dicek otomatis oleh lint**.
 
 ## Komponen
 
@@ -93,6 +118,7 @@ Komponen baru yang dipakai di lebih dari satu tempat: taruh di `src/components/u
 
 ## Sebelum selesai
 
-- Cek tampilan di tema **terang dan gelap**, dan di lebar **390px** (ponsel)
+- Cek tampilan di tema **terang dan gelap**, dan di lebar **360px**, **768px**, dan **1280px**: tidak ada scroll horizontal, tidak ada teks terpotong, target sentuh ≥ 24px
 - Jalankan `bun run lint` di `apps/web` dan pastikan tidak ada error `design/tokens`
-- Kalau `bun dev` sedang jalan, **jangan jalankan `next build` di folder ini**: cache dev server bisa rusak dan perubahan tidak muncul. Cek tipe dengan `bunx tsc --noEmit`, atau build di salinan terpisah.
+- Cek tipe dengan `bunx tsc --noEmit` (tidak perlu `next build` saat `bun dev` jalan).
+- **Ubah `globals.css` terpisah dari file `.tsx`.** Kalau `globals.css` dan `.tsx` berubah hampir bersamaan, loader Tailwind di dev server bisa tetap memakai CSS lama (perubahan tidak muncul walau sudah refresh). Kalau itu terjadi: ubah lagi sedikit isi `globals.css` (bukan cuma `touch`), atau restart `bun dev`.

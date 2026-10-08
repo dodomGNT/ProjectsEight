@@ -203,8 +203,8 @@ export default function Home() {
   return (
     <div className="flex-1">
       <header className="sticky top-0 z-10 border-b border-border bg-background/80 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center gap-6 px-4 py-3 md:px-8">
-          <a href="#" className="shrink-0 text-body-sm font-semibold">
+        <div className="mx-auto flex max-w-6xl items-center gap-6 px-4 py-2 md:px-8">
+          <a href="#" className="shrink-0 py-2 text-body-sm font-semibold">
             ProjectsEight
           </a>
           <nav className="flex min-w-0 flex-1 gap-5 overflow-x-auto [scrollbar-width:none]">
@@ -212,7 +212,7 @@ export default function Home() {
               <a
                 key={s.id}
                 href={`#${s.id}`}
-                className="shrink-0 text-body-sm text-muted-foreground transition-colors hover:text-foreground"
+                className="shrink-0 py-2 text-body-sm text-muted-foreground transition-colors hover:text-foreground"
               >
                 {s.label}
               </a>
@@ -242,18 +242,18 @@ export default function Home() {
           id="font"
           overline="01 · Font family"
           title="Font"
-          description="Dua keluarga font: Atkinson Hyperlegible Next untuk semua teks (dipilih karena setiap huruf mudah dibedakan), mono untuk kode. Font dimuat lewat next/font di src/app/layout.tsx."
+          description="Keluarga Atkinson Hyperlegible (dipilih karena setiap huruf mudah dibedakan): versi Next untuk semua teks, versi Mono untuk kode. Font dimuat lewat next/font di src/app/layout.tsx."
         >
           <Link
             href="/fonts"
-            className="mb-6 inline-flex items-center gap-2 text-body-sm font-medium text-primary underline-offset-4 hover:underline"
+            className="mb-6 inline-flex items-center gap-2 py-1 text-body-sm font-medium text-primary underline-offset-4 hover:underline"
           >
             Bandingkan pilihan font yang mudah dibaca →
           </Link>
           <div className="grid gap-6 md:grid-cols-2">
             {[
               { name: "Atkinson Hyperlegible Next", className: "font-sans", usage: "Semua teks: judul, paragraf, tombol" },
-              { name: "Geist Mono", className: "font-mono", usage: "Kode, angka teknis, nama file" },
+              { name: "Atkinson Hyperlegible Mono", className: "font-mono", usage: "Kode, angka teknis, nama file" },
             ].map((font) => (
               <div key={font.name} className="rounded-2xl border border-border p-6 md:p-8">
                 <div className="flex items-baseline justify-between gap-4">

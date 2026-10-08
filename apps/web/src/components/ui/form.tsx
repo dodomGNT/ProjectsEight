@@ -51,7 +51,7 @@ function Choice({
   ...props
 }: ComponentProps<"input"> & { type: "checkbox" | "radio"; label: ReactNode; description?: ReactNode }) {
   return (
-    <label className={`flex cursor-pointer items-start gap-3 has-disabled:cursor-not-allowed has-disabled:opacity-60 ${className}`}>
+    <label className={`flex min-h-6 cursor-pointer items-start gap-3 has-disabled:cursor-not-allowed has-disabled:opacity-60 ${className}`}>
       <input
         type={type}
         className="mt-0.5 size-4 shrink-0 cursor-pointer accent-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed"

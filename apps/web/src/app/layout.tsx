@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Atkinson_Hyperlegible_Next, Geist_Mono } from "next/font/google";
+import { Atkinson_Hyperlegible_Mono, Atkinson_Hyperlegible_Next } from "next/font/google";
 import { themeScript } from "@/lib/theme";
 import "./globals.css";
 
@@ -13,9 +13,12 @@ const fontSans = Atkinson_Hyperlegible_Next({
   fallback: ["ui-sans-serif", "system-ui", "sans-serif"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+// Font kode: pasangan mono dari Atkinson Hyperlegible
+const fontMono = Atkinson_Hyperlegible_Mono({
+  variable: "--font-atkinson-mono",
+  subsets: ["latin", "latin-ext"],
+  adjustFontFallback: false,
+  fallback: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
 });
 
 export const metadata: Metadata = {
@@ -30,7 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       data-theme="light"
       // Script tema mengubah data-theme sebelum React hydrate
       suppressHydrationWarning
-      className={`${fontSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${fontSans.variable} ${fontMono.variable} h-full antialiased`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />

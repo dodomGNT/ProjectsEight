@@ -60,9 +60,9 @@
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
 
-  /* Font dimuat di src/app/layout.tsx */
+  /* Font dimuat di src/app/layout.tsx (next/font) */
   --font-sans: var(--font-atkinson);
-  --font-mono: var(--font-geist-mono);
+  --font-mono: var(--font-atkinson-mono);
 }
 
 /*

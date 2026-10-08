@@ -69,6 +69,27 @@ function findViolations(text) {
   for (const cls of text.split(/\s+/)) {
     if (!cls) continue;
     const { variants, utility } = splitVariants(cls);
+    const responsive = variants.some((v) => /^(sm|md|lg|xl|2xl)$/.test(v));
+
+    // Responsif: lebar tetap >= 320px atau kolom grid ber-px tanpa breakpoint akan merusak tampilan ponsel
+    const fixedWidth = utility.match(/^(w|min-w)-\[(\d+)px\]$/);
+    if (fixedWidth && Number(fixedWidth[2]) >= 320 && !responsive) {
+      found.push({
+        cls,
+        message:
+          "`{{cls}}` membuat elemen lebih lebar dari layar ponsel. Pakai `w-full` + `max-w-*`, atau batasi dengan breakpoint (mis. `md:{{cls}}`).",
+      });
+      continue;
+    }
+    if (/^grid-cols-\[.*\d+px/.test(utility) && !responsive) {
+      found.push({
+        cls,
+        message:
+          "`{{cls}}` memakai kolom ber-px di semua ukuran layar. Di ponsel pakai satu kolom, lalu aktifkan dengan breakpoint (mis. `md:{{cls}}`).",
+      });
+      continue;
+    }
+
     if (variants.includes("dark") && new RegExp(`^(${COLOR_UTILS})-`).test(utility)) {
       found.push({
         cls,

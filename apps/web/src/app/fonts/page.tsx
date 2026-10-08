@@ -78,8 +78,8 @@ const sansFonts = [
 
 const monoFonts = [
   { name: "JetBrains Mono", font: jetbrains, why: "Dibuat untuk membaca kode berjam-jam. Huruf kecil tinggi, 0 bergaris." },
-  { name: "Atkinson Hyperlegible Mono", font: atkinsonMono, why: "Pasangan mono dari Atkinson Hyperlegible Next." },
-  { name: "Geist Mono", font: geistMono, why: "Yang dipakai sekarang untuk kode." },
+  { name: "Atkinson Hyperlegible Mono", font: atkinsonMono, why: "Yang dipakai sekarang untuk kode. Pasangan mono dari Atkinson Hyperlegible Next." },
+  { name: "Geist Mono", font: geistMono, why: "Sebelumnya dipakai untuk kode." },
 ];
 
 const legibility = "Il1| O0o rn m 5S 8B 6b g9 a@";
@@ -88,8 +88,8 @@ export default function FontsPage() {
   return (
     <div className="flex-1">
       <header className="sticky top-0 z-10 border-b border-border bg-background/80 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center gap-6 px-4 py-3 md:px-8">
-          <Link href="/" className="text-body-sm font-semibold">
+        <div className="mx-auto flex max-w-6xl items-center gap-6 px-4 py-2 md:px-8">
+          <Link href="/" className="py-2 text-body-sm font-semibold">
             ← Design System
           </Link>
           <span className="flex-1" />
