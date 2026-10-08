@@ -32,8 +32,12 @@
   --destructive-foreground: #ffffff;
 }
 
-/* ── Warna (dark mode) ── */
-:root[data-theme="dark"] {
+/* ── Warna (dark mode) ──
+ * Berlaku untuk seluruh halaman (<html data-theme="dark">) atau hanya satu area
+ * (mis. <div data-theme="dark"> di atas gambar latar gelap). Untuk satu area,
+ * tambahkan juga class `text-foreground` supaya warna teksnya ikut berganti.
+ */
+[data-theme="dark"] {
   color-scheme: dark;
   --background: #0a0a0a;
   --foreground: #ededed;

@@ -62,6 +62,8 @@ Hanya pakai warna token. Warna otomatis berganti di tema gelap, jadi **jangan pa
 
 Dilarang: hex/rgb langsung (`#fff`, `bg-[#123456]`), palet bawaan Tailwind (`zinc-*`, `gray-*`, `blue-*`, `white`, `black`, dst.). Opacity boleh, misalnya `bg-primary/90` untuk hover.
 
+**Area yang selalu gelap** (mis. di atas foto/gambar latar gelap): bungkus dengan `<div data-theme="dark" className="text-foreground">`. Semua token di dalamnya memakai nilai tema gelap, apa pun tema situsnya. Jangan memakai `text-white` / `bg-black` untuk keperluan ini.
+
 ## Spasi, ukuran, sudut
 
 - Spasi (padding, margin, gap) pakai skala Tailwind (kelipatan 4px: `p-4` = 16px). Nilai arbitrary seperti `p-[13px]` dilarang. Nilai yang dipakai:
@@ -124,10 +126,11 @@ Lebar tetap dan kolom grid ber-px tanpa breakpoint **dicek otomatis oleh lint**.
 Satu layar penuh dengan gambar latar (contoh: `src/app/login/page.tsx`):
 
 - **Latar**: `next/image` dengan `fill`, `sizes="100vw"`, `priority`, `alt=""` (dekoratif), `className="-z-10 object-cover"`; wadah halaman `relative isolate min-h-dvh`. File latar di `public/login/background.svg`, boleh diganti foto (jpg/png/webp) dengan menyesuaikan `src`.
-- **Logo**: `LogoGroup` di dalam kotak `bg-background/90 backdrop-blur rounded-2xl` supaya tetap terbaca di atas latar apa pun.
+- **Tanpa latar putih**: area logo dan form dibungkus `<div data-theme="dark" className="… text-foreground">`, karena gambar latarnya selalu gelap. Semua warna di dalamnya otomatis memakai token tema gelap, di mode terang maupun gelap.
+- **Logo**: `LogoGroup` langsung di atas gambar latar, tanpa kotak/latar.
 - **Posisi**: ponsel → logo di tengah atas, form selebar layar di bawah. Mulai `md:` → logo kiri atas (`md:self-start`), form kanan bawah (`md:self-end md:max-w-md`). Wadah `flex flex-col justify-between`, jadi logo dan form tidak pernah bertumpuk.
-- **Form**: kartu `bg-background` (bukan transparan) dengan `Field` + `Input` + `Checkbox` + `Button type="submit" size="lg" className="w-full"`. Validasi sendiri (`noValidate`), pesan error lewat prop `error`, fokus pindah ke input pertama yang salah.
-- Link "← Kembali ke beranda" dan `ThemeToggle` ada di bagian bawah kartu form.
+- **Form**: kartu kaca gelap transparan `bg-background/40 backdrop-blur-md border border-foreground/15` (bukan putih), berisi `Field` + `Input` + `Checkbox` + `Button type="submit" size="lg" className="w-full"`. Validasi sendiri (`noValidate`), pesan error lewat prop `error`, fokus pindah ke input pertama yang salah.
+- Link "← Kembali ke beranda" ada di bagian bawah kartu form. Halaman ini tidak memakai `ThemeToggle`, karena area login selalu gelap.
 - **Status**: login belum terhubung ke backend (belum ada endpoint autentikasi di `apps/api`). Setelah validasi lolos, form hanya menampilkan pesan bahwa login belum tersedia. Jangan menampilkan seolah-olah login berhasil sebelum backend-nya dibuat.
 
 ## Komponen
@@ -166,4 +169,4 @@ Setiap komponen yang dipakai di lebih dari satu tempat wajib didokumentasikan di
 - Cek tampilan di tema **terang dan gelap**, dan di lebar **360px**, **768px**, dan **1280px**: tidak ada scroll horizontal, tidak ada teks terpotong, target sentuh ≥ 24px
 - Jalankan `bun run lint` di `apps/web` dan pastikan tidak ada error `design/tokens`
 - Cek tipe dengan `bunx tsc --noEmit` (tidak perlu `next build` saat `bun dev` jalan).
-- **Ubah `globals.css` terpisah dari file `.tsx`.** Kalau `globals.css` dan `.tsx` berubah hampir bersamaan, loader Tailwind di dev server bisa tetap memakai CSS lama (perubahan tidak muncul walau sudah refresh). Kalau itu terjadi: ubah lagi sedikit isi `globals.css` (bukan cuma `touch`), atau restart `bun dev`.
+- **Setelah mengubah `globals.css`, pastikan dev server benar-benar memakai CSS baru** (cek CSS yang disajikan, atau lihat hasilnya di browser). Loader Tailwind di dev server kadang tetap memakai CSS lama, bahkan saat hanya `globals.css` yang diubah. Kalau itu terjadi: ubah lagi sedikit isi `globals.css` (bukan cuma `touch`), atau restart `bun dev`. Ubah `globals.css` terpisah dari file `.tsx` supaya mudah dicek.
