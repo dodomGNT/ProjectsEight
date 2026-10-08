@@ -1,4 +1,5 @@
 import { ColorSwatch, TypeRow } from "@/components/style-guide";
+import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Checkbox, Field, Input, Radio, Select, Switch, Textarea } from "@/components/ui/form";
@@ -243,6 +244,12 @@ export default function Home() {
           title="Font"
           description="Dua keluarga font: sans untuk semua teks, mono untuk kode. Font dimuat lewat next/font di src/app/layout.tsx."
         >
+          <Link
+            href="/fonts"
+            className="mb-6 inline-flex items-center gap-2 text-body-sm font-medium text-primary underline-offset-4 hover:underline"
+          >
+            Bandingkan pilihan font yang mudah dibaca →
+          </Link>
           <div className="grid gap-6 md:grid-cols-2">
             {[
               { name: "Geist Sans", className: "font-sans", usage: "Semua teks: judul, paragraf, tombol" },
