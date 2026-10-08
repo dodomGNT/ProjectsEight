@@ -8,6 +8,20 @@
       "when": 1791432444586,
       "tag": "0000_careful_scream",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791432666555,
+      "tag": "0001_enable_pgvector",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791432673221,
+      "tag": "0002_lying_triton",
+      "breakpoints": true
     }
   ]
 }
