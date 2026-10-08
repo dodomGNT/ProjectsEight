@@ -1,4 +1,6 @@
 import { ColorSwatch, TypeRow } from "@/components/style-guide";
+import { Button } from "@/components/ui/button";
+import { Checkbox, Field, Input, Radio, Select, Switch, Textarea } from "@/components/ui/form";
 
 const typeScale = [
   {
@@ -103,6 +105,7 @@ const colors = [
   { name: "Primary", className: "bg-primary", usage: "Tombol utama, link" },
   { name: "Primary Foreground", className: "bg-primary-foreground", usage: "Teks di atas warna primary" },
   { name: "Accent", className: "bg-accent", usage: "Highlight, badge" },
+  { name: "Destructive", className: "bg-destructive", usage: "Tombol hapus, pesan error" },
 ];
 
 const spacing = [1, 2, 3, 4, 6, 8, 12, 16, 24];
@@ -123,7 +126,53 @@ const sections = [
   { id: "gaya", label: "Gaya teks" },
   { id: "warna", label: "Warna" },
   { id: "spasi", label: "Spasi & radius" },
+  { id: "tombol", label: "Tombol" },
+  { id: "form", label: "Form" },
 ];
+
+const buttonVariants = [
+  { variant: "primary", usage: "Aksi utama. Cukup satu per area." },
+  { variant: "secondary", usage: "Aksi pendamping." },
+  { variant: "outline", usage: "Aksi alternatif, mis. Batal." },
+  { variant: "ghost", usage: "Aksi ringan di toolbar atau menu." },
+  { variant: "destructive", usage: "Aksi berbahaya, mis. Hapus." },
+  { variant: "link", usage: "Aksi yang tampil seperti tautan." },
+] as const;
+
+const PlusIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+    <path d="M12 5v14M5 12h14" />
+  </svg>
+);
+
+const ArrowIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <path d="M5 12h14M13 6l6 6-6 6" />
+  </svg>
+);
+
+const TrashIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3" />
+  </svg>
+);
+
+function Demo({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div className="rounded-2xl border border-border">
+      <p className="border-b border-border px-6 py-3 text-overline uppercase text-muted-foreground">{title}</p>
+      <div className="flex flex-wrap items-center gap-4 p-6">{children}</div>
+    </div>
+  );
+}
+
+function Code({ children }: { children: string }) {
+  return (
+    <pre className="overflow-x-auto rounded-2xl bg-muted p-6 font-mono text-code">
+      <code>{children.trim()}</code>
+    </pre>
+  );
+}
 
 function Section({
   id,
@@ -319,6 +368,175 @@ export default function Home() {
                 </div>
               ))}
             </div>
+          </div>
+        </Section>
+
+        <Section
+          id="tombol"
+          overline="07 · Button"
+          title="Tombol"
+          description="Komponen Button di src/components/ui/button.tsx. Pilih variant sesuai pentingnya aksi, dan size sesuai tempatnya."
+        >
+          <div className="grid gap-6">
+            <div className="divide-y divide-border rounded-2xl border border-border">
+              {buttonVariants.map((b) => (
+                <div key={b.variant} className="grid items-center gap-3 p-6 sm:grid-cols-[200px_1fr_auto]">
+                  <div>
+                    <code className="font-mono text-caption text-primary">variant=&quot;{b.variant}&quot;</code>
+                    <p className="text-caption text-muted-foreground">{b.usage}</p>
+                  </div>
+                  <div className="flex flex-wrap gap-3">
+                    <Button variant={b.variant}>Simpan</Button>
+                    <Button variant={b.variant} disabled>
+                      Nonaktif
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="grid gap-6 lg:grid-cols-2">
+              <Demo title="Ukuran: sm · md · lg · icon">
+                <Button size="sm">Kecil</Button>
+                <Button size="md">Sedang</Button>
+                <Button size="lg">Besar</Button>
+                <Button size="icon" variant="outline" aria-label="Tambah">
+                  <PlusIcon />
+                </Button>
+              </Demo>
+              <Demo title="Dengan ikon & loading">
+                <Button>
+                  <PlusIcon /> Tambah data
+                </Button>
+                <Button variant="outline">
+                  Lanjut <ArrowIcon />
+                </Button>
+                <Button variant="destructive">
+                  <TrashIcon /> Hapus
+                </Button>
+                <Button loading>Menyimpan…</Button>
+              </Demo>
+            </div>
+
+            <Code>{`
+import { Button } from "@/components/ui/button";
+
+<Button>Simpan</Button>
+<Button variant="outline" size="sm">Batal</Button>
+<Button variant="destructive" loading={isDeleting}>Hapus</Button>
+<Button type="submit">Kirim</Button>
+`}</Code>
+          </div>
+        </Section>
+
+        <Section
+          id="form"
+          overline="08 · Form"
+          title="Form inputan"
+          description="Komponen di src/components/ui/form.tsx. Bungkus input dengan Field supaya label, teks bantuan, dan pesan error otomatis tersambung."
+        >
+          <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
+            <form className="grid gap-6 rounded-2xl border border-border p-6 md:p-8">
+              <div>
+                <h3 className="text-h3">Contoh form</h3>
+                <p className="mt-1 text-body-sm text-muted-foreground">
+                  Semua jenis inputan dalam satu form.
+                </p>
+              </div>
+
+              <div className="grid gap-6 sm:grid-cols-2">
+                <Field id="nama" label="Nama lengkap" required>
+                  <Input placeholder="Budi Santoso" autoComplete="name" />
+                </Field>
+                <Field id="email" label="Email" required error="Format email tidak valid.">
+                  <Input type="email" defaultValue="budi@" autoComplete="email" />
+                </Field>
+              </div>
+
+              <Field id="password" label="Password" hint="Minimal 8 karakter, kombinasi huruf dan angka.">
+                <Input type="password" autoComplete="new-password" />
+              </Field>
+
+              <div className="grid gap-6 sm:grid-cols-2">
+                <Field id="kota" label="Kota">
+                  <Select defaultValue="">
+                    <option value="" disabled>
+                      Pilih kota
+                    </option>
+                    <option>Jakarta</option>
+                    <option>Bandung</option>
+                    <option>Surabaya</option>
+                    <option>Yogyakarta</option>
+                  </Select>
+                </Field>
+                <Field id="kode" label="Kode referal" hint="Tidak bisa diubah.">
+                  <Input defaultValue="EIGHT-2026" disabled />
+                </Field>
+              </div>
+
+              <Field id="pesan" label="Pesan" hint="Opsional.">
+                <Textarea placeholder="Tulis pesan…" />
+              </Field>
+
+              <fieldset className="grid gap-3">
+                <legend className="mb-3 text-body-sm font-medium">Paket</legend>
+                <Radio name="paket" value="basic" label="Basic" description="Gratis, untuk mencoba." defaultChecked />
+                <Radio name="paket" value="pro" label="Pro" description="Rp99.000 / bulan." />
+                <Radio name="paket" value="tim" label="Tim" description="Segera hadir." disabled />
+              </fieldset>
+
+              <fieldset className="grid gap-3">
+                <legend className="mb-3 text-body-sm font-medium">Notifikasi</legend>
+                <Checkbox name="notif" value="email" label="Email" defaultChecked />
+                <Checkbox name="notif" value="wa" label="WhatsApp" description="Hanya untuk info penting." />
+              </fieldset>
+
+              <Switch name="newsletter" label="Berlangganan newsletter" defaultChecked />
+
+              <div className="flex flex-wrap justify-end gap-3 border-t border-border pt-6">
+                <Button variant="outline">Batal</Button>
+                <Button>Simpan</Button>
+              </div>
+            </form>
+
+            <div className="grid content-start gap-6">
+              <Demo title="Status input">
+                <div className="grid w-full gap-5">
+                  <Field id="s-default" label="Default">
+                    <Input placeholder="Placeholder" />
+                  </Field>
+                  <Field id="s-filled" label="Terisi">
+                    <Input defaultValue="Teks yang sudah diisi" />
+                  </Field>
+                  <Field id="s-error" label="Error" error="Wajib diisi.">
+                    <Input />
+                  </Field>
+                  <Field id="s-disabled" label="Nonaktif">
+                    <Input defaultValue="Tidak bisa diubah" disabled />
+                  </Field>
+                </div>
+              </Demo>
+              <p className="text-caption text-muted-foreground">
+                Klik atau tekan Tab ke sebuah input untuk melihat status fokus.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-6">
+            <Code>{`
+import { Field, Input, Select, Checkbox, Switch } from "@/components/ui/form";
+
+<Field id="email" label="Email" hint="Kami tidak akan membagikannya." required>
+  <Input type="email" name="email" />
+</Field>
+
+<Field id="email" label="Email" error="Format email tidak valid.">
+  <Input type="email" name="email" />
+</Field>
+
+<Checkbox name="setuju" label="Saya setuju dengan syarat & ketentuan" />
+<Switch name="newsletter" label="Berlangganan newsletter" />
+`}</Code>
           </div>
         </Section>
       </main>
