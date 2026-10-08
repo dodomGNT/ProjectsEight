@@ -11,6 +11,7 @@ Cara menjalankan, setup, dan `.env` ada di [README utama](../../README.md). Atur
 | `/` | `src/app/page.tsx` | Landing page |
 | `/design` | `src/app/design/page.tsx` | Dokumentasi design system (tipografi, warna, spasi, tombol, form) |
 | `/fonts` | `src/app/fonts/page.tsx` | Perbandingan pilihan font |
+| `/login` | `src/app/login/page.tsx` | Halaman masuk (form belum terhubung ke backend) |
 
 ## Struktur
 
@@ -29,6 +30,10 @@ src/
 eslint/
   design-tokens.mjs    aturan lint: class wajib memakai token design system
 ```
+
+## Mengganti latar halaman login
+
+Latar `/login` ada di `public/login/background.svg` (masih placeholder). Ganti dengan gambar sendiri; kalau formatnya bukan SVG (mis. `background.jpg`), ubah juga `src` di `src/app/login/page.tsx`. Gambar dipotong otomatis supaya memenuhi layar (`object-cover`), jadi pakai gambar yang bagian pentingnya ada di tengah.
 
 ## Mengganti logo
 

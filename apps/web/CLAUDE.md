@@ -114,9 +114,21 @@ Aturan:
   - Di bawah `lg`: dua baris. Baris 1 logo; baris 2 navigasi dengan garis pemisah (`border-t`). Tablet (`md:`) link berjajar; ponsel `MobileNav` dengan `showLabel` (tombol "☰ Menu").
   - Posisi logo: **di tengah** di ponsel (di bawah `md`), **rata kiri** mulai `md:`. Yang di-tengahkan grup logonya (`self-center`), bukan dibuat selebar layar, supaya area klik hanya di logo.
 - Kalau logo atau link bertambah sehingga satu baris tidak muat di 1024px, naikkan breakpoint satu-baris (mis. `lg:` → `xl:`), jangan mengecilkan logo.
+- Aksi di kanan header: tombol utama **"Masuk"** (`ButtonLink href="/login" size="sm"`, variant primary) **selalu tampil di semua ukuran layar**. Aksi sekunder (GitHub) disembunyikan di bawah `sm:` dan dimasukkan ke `footer` milik `MobileNav`.
 - Contoh lengkap: header di `src/app/page.tsx`.
 
 Lebar tetap dan kolom grid ber-px tanpa breakpoint **dicek otomatis oleh lint**.
+
+### Halaman login (`/login`)
+
+Satu layar penuh dengan gambar latar (contoh: `src/app/login/page.tsx`):
+
+- **Latar**: `next/image` dengan `fill`, `sizes="100vw"`, `priority`, `alt=""` (dekoratif), `className="-z-10 object-cover"`; wadah halaman `relative isolate min-h-dvh`. File latar di `public/login/background.svg`, boleh diganti foto (jpg/png/webp) dengan menyesuaikan `src`.
+- **Logo**: `LogoGroup` di dalam kotak `bg-background/90 backdrop-blur rounded-2xl` supaya tetap terbaca di atas latar apa pun.
+- **Posisi**: ponsel → logo di tengah atas, form selebar layar di bawah. Mulai `md:` → logo kiri atas (`md:self-start`), form kanan bawah (`md:self-end md:max-w-md`). Wadah `flex flex-col justify-between`, jadi logo dan form tidak pernah bertumpuk.
+- **Form**: kartu `bg-background` (bukan transparan) dengan `Field` + `Input` + `Checkbox` + `Button type="submit" size="lg" className="w-full"`. Validasi sendiri (`noValidate`), pesan error lewat prop `error`, fokus pindah ke input pertama yang salah.
+- Link "← Kembali ke beranda" dan `ThemeToggle` ada di bagian bawah kartu form.
+- **Status**: login belum terhubung ke backend (belum ada endpoint autentikasi di `apps/api`). Setelah validasi lolos, form hanya menampilkan pesan bahwa login belum tersedia. Jangan menampilkan seolah-olah login berhasil sebelum backend-nya dibuat.
 
 ## Komponen
 
@@ -138,6 +150,7 @@ Selalu pakai komponen yang ada. Jangan membuat tombol/input dari elemen mentah d
 Letak komponen:
 - `src/components/ui/`: komponen dasar yang generik (tombol, form, navigasi). Ikuti pola yang ada (props `variant`/`size`, `className` bisa ditambah).
 - `src/components/`: komponen khusus situs ini (`ThemeToggle`, `LogoGroup`) dan pembantu halaman dokumentasi (`style-guide.tsx`).
+- Komponen yang hanya dipakai **satu halaman** ditaruh di folder halaman itu, mis. `src/app/login/login-form.tsx`.
 - `ThemeToggle` adalah satu-satunya komponen yang memakai `<button>` mentah, karena bentuknya kontrol bersegmen (bukan tombol biasa). Di luar komponen, selalu pakai `Button`.
 
 Setiap komponen yang dipakai di lebih dari satu tempat wajib didokumentasikan di halaman `/design`.

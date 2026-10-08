@@ -228,6 +228,10 @@ export default function Home() {
                   <Icon path={icons.github} /> GitHub
                 </ButtonLink>
               </div>
+              {/* Aksi utama: tampil di semua ukuran layar */}
+              <ButtonLink href="/login" size="sm">
+                Masuk
+              </ButtonLink>
             </div>
           </div>
         </div>
