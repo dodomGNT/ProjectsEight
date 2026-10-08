@@ -86,7 +86,7 @@ export function MobileNav({
         <nav aria-label={label} className="mx-auto max-w-6xl px-4 py-2 md:px-8">
           <ul className="divide-y divide-border">
             {links.map((l) => (
-              <li key={l.href}>
+              <li key={`${l.href}-${l.label}`}>
                 <Link
                   href={l.href}
                   onClick={() => setOpen(false)}
