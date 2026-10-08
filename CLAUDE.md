@@ -4,6 +4,17 @@
 
 Monorepo Turborepo + Bun: `apps/web` (Next.js 16, Tailwind v4) dan `apps/api` (NestJS 12, Drizzle, PostgreSQL + pgvector di Docker). Repo ini juga dipakai sebagai template project baru (`bun run setup`).
 
+## Rule harus selalu terbaru
+
+File rule: `CLAUDE.md` (root) untuk aturan umum, `apps/web/CLAUDE.md` untuk desain & frontend, `apps/api/CLAUDE.md` untuk backend (buat kalau belum ada).
+
+1. **Catat tanpa menunggu diminta.** Setiap perubahan yang menetapkan pola baru (komponen, token, layout, konvensi, struktur folder, perintah, cara kerja) langsung dicatat ke file rule yang sesuai, di commit yang sama dengan perubahannya. Kalau perintah atau struktur berubah, perbarui juga `README.md` yang terkait.
+2. **Jangan mengubah atau menghapus rule yang sudah ada** tanpa permintaan user. Rule baru ditambahkan, bukan menimpa yang lama.
+   - Rule lama hanya boleh diubah kalau user secara eksplisit meminta perubahan itu (mis. "ganti font mono jadi Atkinson" → rule font boleh diperbarui).
+   - Kalau sebuah permintaan bertentangan dengan rule yang ada, **tanya user dulu**, jangan diam-diam mengubah rule atau melanggarnya.
+3. **Laporkan.** Di akhir pekerjaan, sebutkan rule apa yang ditambah atau diubah, dan di file mana.
+4. Rule harus sesuai dengan kode yang benar-benar ada. Jangan mencatat sesuatu yang belum dibuat atau belum dicek.
+
 ## Aturan
 
 - **UI / tampilan**: wajib mengikuti aturan desain di `apps/web/CLAUDE.md` (tipografi, warna, spasi, responsif, komponen).
