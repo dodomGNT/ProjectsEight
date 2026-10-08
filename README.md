@@ -20,6 +20,7 @@ Template monorepo: **Turborepo + Next.js + NestJS + Drizzle + PostgreSQL (pgvect
 gh repo create NamaProject --template dodomGNT/ProjectsEight --private --clone
 cd NamaProject
 bun run setup
+bun dev
 ```
 
 `bun run setup` akan:
