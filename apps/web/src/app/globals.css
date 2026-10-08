@@ -1,26 +1,112 @@
 @import "tailwindcss";
 
+/*
+ * ─────────────────────────────────────────────────────────────
+ *  Design tokens
+ *  Semua ukuran font, warna, dll. ditentukan di file ini.
+ *  Dokumentasinya bisa dilihat di halaman "/" (src/app/page.tsx).
+ * ─────────────────────────────────────────────────────────────
+ */
+
+/* ── Warna (light mode) ── */
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0a0a0a;
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+  --border: #e4e4e7;
+  --primary: #4f46e5;
+  --primary-foreground: #ffffff;
+  --accent: #f59e0b;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* ── Warna (dark mode) ── */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --muted: #18181b;
+    --muted-foreground: #a1a1aa;
+    --border: #27272a;
+    --primary: #818cf8;
+    --primary-foreground: #0a0a0a;
+    --accent: #fbbf24;
   }
+}
+
+/* Warna & font yang nilainya berasal dari variabel lain */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+
+  /* Font dimuat di src/app/layout.tsx */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/*
+ * ── Skala tipografi ──
+ * Setiap token menghasilkan class Tailwind: --text-h1 → `text-h1`.
+ * Satu class sudah mengatur ukuran, line-height, letter-spacing, dan font-weight.
+ */
+@theme {
+  /* Judul hero, menyesuaikan lebar layar (40px → 64px) */
+  --text-display: clamp(2.5rem, 1.5rem + 4vw, 4rem);
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: -0.03em;
+  --text-display--font-weight: 700;
+
+  --text-h1: 2.5rem; /* 40px */
+  --text-h1--line-height: 1.15;
+  --text-h1--letter-spacing: -0.02em;
+  --text-h1--font-weight: 700;
+
+  --text-h2: 2rem; /* 32px */
+  --text-h2--line-height: 1.2;
+  --text-h2--letter-spacing: -0.015em;
+  --text-h2--font-weight: 600;
+
+  --text-h3: 1.5rem; /* 24px */
+  --text-h3--line-height: 1.3;
+  --text-h3--letter-spacing: -0.01em;
+  --text-h3--font-weight: 600;
+
+  --text-h4: 1.25rem; /* 20px */
+  --text-h4--line-height: 1.4;
+  --text-h4--font-weight: 600;
+
+  --text-body-lg: 1.125rem; /* 18px */
+  --text-body-lg--line-height: 1.6;
+
+  --text-body: 1rem; /* 16px */
+  --text-body--line-height: 1.6;
+
+  --text-body-sm: 0.875rem; /* 14px */
+  --text-body-sm--line-height: 1.5;
+
+  --text-caption: 0.75rem; /* 12px */
+  --text-caption--line-height: 1.4;
+  --text-caption--font-weight: 500;
+
+  /* Pakai bersama class `uppercase` */
+  --text-overline: 0.75rem; /* 12px */
+  --text-overline--line-height: 1.3;
+  --text-overline--letter-spacing: 0.08em;
+  --text-overline--font-weight: 600;
+
+  /* Pakai bersama class `font-mono` */
+  --text-code: 0.875rem; /* 14px */
+  --text-code--line-height: 1.6;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
 }
