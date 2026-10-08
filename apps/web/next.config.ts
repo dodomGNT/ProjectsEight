@@ -1,4 +1,8 @@
+import { config } from "dotenv";
 import type { NextConfig } from "next";
+
+// .env ada di root monorepo
+config({ path: "../../.env", quiet: true });
 
 const nextConfig: NextConfig = {
   /* config options here */
