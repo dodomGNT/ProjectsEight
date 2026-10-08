@@ -5,7 +5,7 @@
 Semua UI wajib mengikuti design system. Sumber kebenarannya:
 
 - **Token**: `src/app/globals.css`, satu-satunya tempat nilai font, ukuran, warna ditentukan
-- **Dokumentasi visual**: halaman `/` (`src/app/page.tsx`)
+- **Dokumentasi visual**: halaman `/design` (`src/app/design/page.tsx`)
 - **Komponen**: `src/components/ui/`
 
 Kalau sebuah kebutuhan tidak bisa dipenuhi dengan token/komponen yang ada, **tanya user dulu**. Jangan menambah nilai baru diam-diam.
@@ -102,18 +102,20 @@ Selalu pakai komponen yang ada. Jangan membuat tombol/input dari elemen mentah d
   - `variant`: `primary` (aksi utama, maksimal satu per area) · `secondary` · `outline` (Batal) · `ghost` (toolbar) · `destructive` (Hapus) · `link`
   - `size`: `sm` · `md` (default) · `lg` · `icon` (wajib `aria-label`)
   - Aksi yang sedang berjalan: `loading`, bukan membuat spinner sendiri
+- Link yang tampil seperti tombol (navigasi): `ButtonLink` dari `@/components/ui/button` (prop sama dengan `Button`). Elemen lain yang perlu gaya tombol: `buttonStyles({ variant, size })`.
+  - Untuk menyembunyikan tombol per breakpoint, **bungkus** dengan elemen lain (`<div className="hidden sm:block">`). `hidden` di class tombol itu sendiri kalah oleh `inline-flex`.
 - Form: dari `@/components/ui/form`
   - Setiap input dibungkus `Field` (label, `hint`, `error`, `required`)
   - Komponen: `Input`, `Textarea`, `Select`, `Checkbox`, `Radio`, `Switch`
   - Grup radio/checkbox pakai `<fieldset>` + `<legend>`
 - Tema: `ThemeToggle` dari `@/components/theme-toggle`
 
-Komponen baru yang dipakai di lebih dari satu tempat: taruh di `src/components/ui/`, ikuti pola yang ada (props `variant`/`size`, `className` bisa ditambah), lalu dokumentasikan di halaman `/`.
+Komponen baru yang dipakai di lebih dari satu tempat: taruh di `src/components/ui/`, ikuti pola yang ada (props `variant`/`size`, `className` bisa ditambah), lalu dokumentasikan di halaman `/design`.
 
 ## Mengubah atau menambah token
 
 1. Ubah/tambah di `src/app/globals.css` (warna: isi nilai terang **dan** gelap)
-2. Tambahkan contohnya di halaman `/` (`src/app/page.tsx`)
+2. Tambahkan contohnya di halaman `/design` (`src/app/design/page.tsx`)
 3. Perbarui tabel di file ini
 
 ## Sebelum selesai

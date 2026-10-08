@@ -89,7 +89,7 @@ export default function FontsPage() {
     <div className="flex-1">
       <header className="sticky top-0 z-10 border-b border-border bg-background/80 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center gap-6 px-4 py-2 md:px-8">
-          <Link href="/" className="py-2 text-body-sm font-semibold">
+          <Link href="/design" className="py-2 text-body-sm font-semibold">
             ← Design System
           </Link>
           <span className="flex-1" />

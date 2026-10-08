@@ -1,201 +1,177 @@
-import { ColorSwatch, TypeRow } from "@/components/style-guide";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Button } from "@/components/ui/button";
-import { Checkbox, Field, Input, Radio, Select, Switch, Textarea } from "@/components/ui/form";
+import { ButtonLink } from "@/components/ui/button";
 
-const typeScale = [
-  {
-    token: "Display",
-    className: "text-display",
-    usage: "Judul hero di landing page. Ukurannya menyesuaikan lebar layar.",
-    sample: "Bangun lebih cepat",
-  },
-  {
-    token: "Heading 1",
-    className: "text-h1",
-    usage: "Judul halaman. Cukup satu per halaman.",
-    sample: "Judul halaman utama",
-  },
-  {
-    token: "Heading 2",
-    className: "text-h2",
-    usage: "Judul section.",
-    sample: "Judul sebuah section",
-  },
-  {
-    token: "Heading 3",
-    className: "text-h3",
-    usage: "Sub-section, judul card.",
-    sample: "Judul card atau sub-section",
-  },
-  {
-    token: "Heading 4",
-    className: "text-h4",
-    usage: "Judul kecil, label grup.",
-    sample: "Judul kecil untuk grup",
-  },
-  {
-    token: "Body Large",
-    className: "text-body-lg",
-    usage: "Paragraf pembuka (lead) di bawah judul.",
-    sample:
-      "Paragraf pembuka yang sedikit lebih besar, untuk memperkenalkan isi halaman sebelum masuk ke detail.",
-  },
-  {
-    token: "Body",
-    className: "text-body",
-    usage: "Teks paragraf utama. Default untuk sebagian besar teks.",
-    sample:
-      "Ini adalah teks paragraf biasa. Ukuran dan jarak antar barisnya dibuat nyaman dibaca untuk teks yang panjang, baik di layar desktop maupun ponsel.",
-  },
-  {
-    token: "Body Small",
-    className: "text-body-sm",
-    usage: "Teks pendukung, isi tabel, label form.",
-    sample: "Teks pendukung yang lebih kecil, misalnya untuk deskripsi di bawah input form.",
-  },
-  {
-    token: "Caption",
-    className: "text-caption",
-    usage: "Keterangan gambar, metadata, timestamp.",
-    sample: "Diperbarui 8 Oktober 2026 · 5 menit baca",
-  },
-  {
-    token: "Overline",
-    className: "text-overline uppercase",
-    usage: "Label kecil di atas judul. Selalu dengan `uppercase`.",
-    sample: "Label kategori",
-  },
-  {
-    token: "Code",
-    className: "text-code font-mono",
-    usage: "Potongan kode, nama file, perintah terminal.",
-    sample: "bun run setup NamaProject",
-  },
-];
+export const metadata: Metadata = {
+  title: "ProjectsEight · Starter template full-stack",
+  description:
+    "Monorepo siap pakai: Next.js, NestJS, PostgreSQL dengan pgvector, dan design system yang konsisten.",
+};
 
-const fontWeights = [
-  { className: "font-normal", weight: 400, usage: "Teks paragraf" },
-  { className: "font-medium", weight: 500, usage: "Caption, penekanan ringan" },
-  { className: "font-semibold", weight: 600, usage: "Heading 2–4, label, tombol" },
-  { className: "font-bold", weight: 700, usage: "Display, Heading 1" },
-];
+const REPO_URL = "https://github.com/dodomGNT/ProjectsEight";
 
-const textStyles = [
-  { className: "italic", label: "Italic", usage: "Istilah asing, kutipan" },
-  { className: "underline underline-offset-4", label: "Underline", usage: "Link di dalam paragraf" },
-  { className: "line-through", label: "Line-through", usage: "Harga coret, item selesai" },
-  { className: "uppercase", label: "Uppercase", usage: "Overline, badge" },
-  { className: "tabular-nums", label: "Tabular nums 1.234.567", usage: "Angka di tabel, harga" },
-  { className: "truncate", label: "Teks yang terlalu panjang akan dipotong dengan tanda elipsis di akhir baris", usage: "Judul di card, nama file" },
-];
+/* ── Ikon (stroke mengikuti warna teks) ───────────────────────── */
 
-const textColors = [
-  { className: "text-foreground", usage: "Teks utama" },
-  { className: "text-muted-foreground", usage: "Teks sekunder, deskripsi" },
-  { className: "text-primary", usage: "Link, aksen, elemen aktif" },
-  { className: "text-accent", usage: "Highlight, peringatan ringan" },
-];
-
-const colors = [
-  { name: "Background", className: "bg-background", usage: "Latar halaman" },
-  { name: "Foreground", className: "bg-foreground", usage: "Teks utama" },
-  { name: "Muted", className: "bg-muted", usage: "Latar card, kode, area sekunder" },
-  { name: "Muted Foreground", className: "bg-muted-foreground", usage: "Teks sekunder" },
-  { name: "Border", className: "bg-border", usage: "Garis, pembatas, outline input" },
-  { name: "Primary", className: "bg-primary", usage: "Tombol utama, link" },
-  { name: "Primary Foreground", className: "bg-primary-foreground", usage: "Teks di atas warna primary" },
-  { name: "Accent", className: "bg-accent", usage: "Highlight, badge" },
-  { name: "Destructive", className: "bg-destructive", usage: "Tombol hapus, pesan error" },
-];
-
-const spacing = [1, 2, 3, 4, 6, 8, 12, 16, 24];
-
-const radii = [
-  { className: "rounded-sm", value: "4px" },
-  { className: "rounded-md", value: "6px" },
-  { className: "rounded-lg", value: "8px" },
-  { className: "rounded-xl", value: "12px" },
-  { className: "rounded-2xl", value: "16px" },
-  { className: "rounded-full", value: "9999px" },
-];
-
-const sections = [
-  { id: "font", label: "Font" },
-  { id: "skala", label: "Skala teks" },
-  { id: "weight", label: "Weight" },
-  { id: "gaya", label: "Gaya teks" },
-  { id: "warna", label: "Warna" },
-  { id: "spasi", label: "Spasi & radius" },
-  { id: "tombol", label: "Tombol" },
-  { id: "form", label: "Form" },
-];
-
-const buttonVariants = [
-  { variant: "primary", usage: "Aksi utama. Cukup satu per area." },
-  { variant: "secondary", usage: "Aksi pendamping." },
-  { variant: "outline", usage: "Aksi alternatif, mis. Batal." },
-  { variant: "ghost", usage: "Aksi ringan di toolbar atau menu." },
-  { variant: "destructive", usage: "Aksi berbahaya, mis. Hapus." },
-  { variant: "link", usage: "Aksi yang tampil seperti tautan." },
-] as const;
-
-const PlusIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
-    <path d="M12 5v14M5 12h14" />
-  </svg>
-);
-
-const ArrowIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-    <path d="M5 12h14M13 6l6 6-6 6" />
-  </svg>
-);
-
-const TrashIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-    <path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3" />
-  </svg>
-);
-
-function Demo({ title, children }: { title: string; children: React.ReactNode }) {
+function Icon({ path }: { path: string }) {
   return (
-    <div className="rounded-2xl border border-border">
-      <p className="border-b border-border px-6 py-3 text-overline uppercase text-muted-foreground">{title}</p>
-      <div className="flex flex-wrap items-center gap-4 p-6">{children}</div>
-    </div>
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="size-5"
+      aria-hidden
+    >
+      <path d={path} />
+    </svg>
   );
 }
 
-function Code({ children }: { children: string }) {
-  return (
-    <pre className="overflow-x-auto rounded-2xl bg-muted p-6 font-mono text-code">
-      <code>{children.trim()}</code>
-    </pre>
-  );
-}
+const icons = {
+  layout: "M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM3 9h18M9 21V9",
+  server: "M4 4h16v6H4zM4 14h16v6H4zM8 7h.01M8 17h.01",
+  database: "M4 6c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3zM4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3",
+  search: "M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM21 21l-4.3-4.3",
+  layers: "M12 2 2 7l10 5 10-5zM2 17l10 5 10-5M2 12l10 5 10-5",
+  box: "M21 8 12 3 3 8v8l9 5 9-5zM3 8l9 5 9-5M12 13v8",
+  palette: "M12 22a10 10 0 1 1 10-10c0 2.8-2.2 4-4 4h-2a2 2 0 0 0-1.5 3.3A1.6 1.6 0 0 1 12 22zM7.5 11h.01M10.5 7h.01M15.5 8h.01",
+  moon: "M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z",
+  zap: "M13 2 3 14h9l-1 8 10-12h-9z",
+  key: "M15 7a4 4 0 1 1-3.9 5H3v3h3v3h3v-3h2.1A4 4 0 0 1 15 7zM16 11h.01",
+  phone: "M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM11 18h2",
+  check: "M20 6 9 17l-5-5",
+  arrow: "M5 12h14M13 6l6 6-6 6",
+  github:
+    "M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21",
+};
 
-function Section({
+/* ── Konten ───────────────────────────────────────────────────── */
+
+const stack = [
+  {
+    icon: icons.layout,
+    name: "Next.js 16",
+    desc: "Frontend dengan App Router, Tailwind CSS v4, dan halaman statis yang cepat.",
+  },
+  {
+    icon: icons.server,
+    name: "NestJS 12",
+    desc: "Backend API terstruktur dengan module, controller, dan dependency injection.",
+  },
+  {
+    icon: icons.database,
+    name: "PostgreSQL + Drizzle",
+    desc: "Database relasional dengan ORM yang type-safe dan migrasi otomatis.",
+  },
+  {
+    icon: icons.search,
+    name: "pgvector",
+    desc: "Pencarian berdasarkan makna (semantic search) untuk fitur AI, langsung di PostgreSQL.",
+  },
+  {
+    icon: icons.layers,
+    name: "Turborepo + Bun",
+    desc: "Satu repo untuk web dan API, satu perintah untuk menjalankan semuanya.",
+  },
+  {
+    icon: icons.box,
+    name: "Docker Compose",
+    desc: "Database menyala dengan satu perintah, sama di setiap laptop.",
+  },
+];
+
+const features = [
+  {
+    icon: icons.palette,
+    title: "Design system yang dijaga",
+    desc: "Ukuran font, warna, dan spasi ditentukan di satu file. Aturan lint menolak class di luar design system.",
+  },
+  {
+    icon: icons.moon,
+    title: "Mode terang & gelap",
+    desc: "Pilihan Terang, Gelap, atau Sistem. Tersimpan di browser dan tanpa kedipan warna saat halaman dibuka.",
+  },
+  {
+    icon: icons.zap,
+    title: "Setup satu perintah",
+    desc: "bun run setup mengganti nama project, mencari port kosong, menyalakan database, dan menjalankan migrasi.",
+  },
+  {
+    icon: icons.key,
+    title: "Satu file .env",
+    desc: "Docker, API, migrasi, dan frontend membaca konfigurasi dari tempat yang sama.",
+  },
+  {
+    icon: icons.phone,
+    title: "Responsif & mudah diakses",
+    desc: "Diuji dari layar 360px sampai desktop, dengan font Atkinson Hyperlegible yang mudah dibaca.",
+  },
+  {
+    icon: icons.check,
+    title: "Komponen siap pakai",
+    desc: "Tombol, input, select, checkbox, radio, dan switch dengan label dan pesan error yang tersambung.",
+  },
+];
+
+const steps = [
+  {
+    title: "Buat repo dari template",
+    command: "gh repo create NamaProject --template dodomGNT/ProjectsEight --private --clone",
+  },
+  { title: "Masuk ke folder project", command: "cd NamaProject" },
+  { title: "Jalankan setup otomatis", command: "bun run setup" },
+  { title: "Mulai membangun", command: "bun dev" },
+];
+
+/* ── Bagian halaman ───────────────────────────────────────────── */
+
+function SectionHeading({
   id,
   overline,
   title,
   description,
-  children,
 }: {
   id: string;
   overline: string;
   title: string;
   description: string;
-  children: React.ReactNode;
 }) {
   return (
-    <section id={id} className="scroll-mt-24 border-t border-border py-16 md:py-24">
+    <div className="max-w-2xl">
       <p className="text-overline uppercase text-primary">{overline}</p>
-      <h2 className="mt-3 text-h2">{title}</h2>
-      <p className="mt-3 max-w-2xl text-body-lg text-muted-foreground">{description}</p>
-      <div className="mt-10">{children}</div>
-    </section>
+      <h2 id={id} className="mt-3 scroll-mt-24 text-h2">
+        {title}
+      </h2>
+      <p className="mt-3 text-body-lg text-muted-foreground">{description}</p>
+    </div>
+  );
+}
+
+function Terminal() {
+  return (
+    <div className="min-w-0 overflow-hidden rounded-2xl border border-border bg-muted">
+      <div className="flex items-center gap-2 border-b border-border px-4 py-3">
+        <span className="size-3 rounded-full bg-border" />
+        <span className="size-3 rounded-full bg-border" />
+        <span className="size-3 rounded-full bg-border" />
+        <span className="ml-2 font-mono text-caption text-muted-foreground">terminal</span>
+      </div>
+      <pre className="p-4 font-mono text-code break-words whitespace-pre-wrap md:p-6">
+        <code>
+          {steps.map((s, i) => (
+            <span key={s.command} className="block">
+              <span className="text-muted-foreground"># {i + 1}. {s.title}</span>
+              {"\n"}
+              <span className="text-primary">$</span> {s.command}
+              {i < steps.length - 1 && "\n\n"}
+            </span>
+          ))}
+        </code>
+      </pre>
+    </div>
   );
 }
 
@@ -204,357 +180,171 @@ export default function Home() {
     <div className="flex-1">
       <header className="sticky top-0 z-10 border-b border-border bg-background/80 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center gap-6 px-4 py-2 md:px-8">
-          <a href="#" className="shrink-0 py-2 text-body-sm font-semibold">
+          <Link href="/" className="shrink-0 py-2 text-body font-bold">
             ProjectsEight
-          </a>
-          <nav className="flex min-w-0 flex-1 gap-5 overflow-x-auto [scrollbar-width:none]">
-            {sections.map((s) => (
-              <a
-                key={s.id}
-                href={`#${s.id}`}
-                className="shrink-0 py-2 text-body-sm text-muted-foreground transition-colors hover:text-foreground"
+          </Link>
+          <nav aria-label="Navigasi utama" className="hidden flex-1 gap-6 md:flex">
+            {[
+              { href: "#stack", label: "Stack" },
+              { href: "#fitur", label: "Fitur" },
+              { href: "#mulai", label: "Cara mulai" },
+              { href: "/design", label: "Design system" },
+            ].map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                className="py-2 text-body-sm text-muted-foreground transition-colors hover:text-foreground"
               >
-                {s.label}
-              </a>
+                {l.label}
+              </Link>
             ))}
           </nav>
-          <ThemeToggle />
+          <div className="ml-auto flex items-center gap-3 md:ml-0">
+            <ThemeToggle />
+            {/* Dibungkus supaya `hidden` tidak kalah oleh `inline-flex` milik tombol */}
+            <div className="hidden sm:block">
+              <ButtonLink href={REPO_URL} size="sm" variant="outline">
+                <Icon path={icons.github} /> GitHub
+              </ButtonLink>
+            </div>
+          </div>
         </div>
       </header>
 
-      <main className="mx-auto max-w-6xl px-4 md:px-8">
+      <main>
         {/* Hero */}
-        <div className="py-20 md:py-32">
-          <p className="text-overline uppercase text-primary">Design System</p>
-          <h1 className="mt-4 max-w-4xl text-display">Panduan tipografi & gaya visual</h1>
-          <p className="mt-6 max-w-2xl text-body-lg text-muted-foreground">
-            Satu tempat untuk melihat dan menentukan ukuran font, ketebalan, warna, dan spasi yang
-            dipakai di seluruh aplikasi. Nilai di halaman ini dibaca langsung dari CSS, jadi selalu
-            sesuai dengan yang sedang aktif.
-          </p>
-          <div className="mt-8 inline-flex flex-wrap items-center gap-2 rounded-xl border border-border bg-muted px-4 py-3 text-body-sm">
-            <span className="text-muted-foreground">Ubah semua token di</span>
-            <code className="font-mono text-code text-primary">apps/web/src/app/globals.css</code>
-          </div>
-        </div>
-
-        <Section
-          id="font"
-          overline="01 · Font family"
-          title="Font"
-          description="Keluarga Atkinson Hyperlegible (dipilih karena setiap huruf mudah dibedakan): versi Next untuk semua teks, versi Mono untuk kode. Font dimuat lewat next/font di src/app/layout.tsx."
-        >
-          <Link
-            href="/fonts"
-            className="mb-6 inline-flex items-center gap-2 py-1 text-body-sm font-medium text-primary underline-offset-4 hover:underline"
-          >
-            Bandingkan pilihan font yang mudah dibaca →
-          </Link>
-          <div className="grid gap-6 md:grid-cols-2">
-            {[
-              { name: "Atkinson Hyperlegible Next", className: "font-sans", usage: "Semua teks: judul, paragraf, tombol" },
-              { name: "Atkinson Hyperlegible Mono", className: "font-mono", usage: "Kode, angka teknis, nama file" },
-            ].map((font) => (
-              <div key={font.name} className="rounded-2xl border border-border p-6 md:p-8">
-                <div className="flex items-baseline justify-between gap-4">
-                  <p className="text-h4">{font.name}</p>
-                  <code className="font-mono text-caption text-primary">{font.className}</code>
-                </div>
-                {/* eslint-disable-next-line design/tokens -- spesimen font besar khusus halaman dokumentasi */}
-                <p className={`${font.className} mt-6 text-[5rem] leading-none font-semibold`}>Aa</p>
-                <p className={`${font.className} mt-6 text-body break-all text-muted-foreground`}>
-                  ABCDEFGHIJKLMNOPQRSTUVWXYZ
-                  <br />
-                  abcdefghijklmnopqrstuvwxyz
-                  <br />
-                  0123456789 !@#$%&*()
-                </p>
-                <p className="mt-4 text-caption text-muted-foreground">{font.usage}</p>
-              </div>
-            ))}
-          </div>
-        </Section>
-
-        <Section
-          id="skala"
-          overline="02 · Type scale"
-          title="Skala teks"
-          description="Setiap class sudah mengatur ukuran, line-height, letter-spacing, dan weight sekaligus. Cukup pakai satu class, misalnya text-h2."
-        >
-          <div className="border-t border-border">
-            {typeScale.map((t) => (
-              <TypeRow key={t.className} {...t} />
-            ))}
-          </div>
-        </Section>
-
-        <Section
-          id="weight"
-          overline="03 · Font weight"
-          title="Ketebalan"
-          description="Empat ketebalan yang dipakai. Hindari weight lain supaya tampilan tetap konsisten."
-        >
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {fontWeights.map((w) => (
-              <div key={w.className} className="rounded-2xl border border-border p-6">
-                <p className={`${w.className} text-h1`}>Aa</p>
-                <p className="mt-4 text-body-sm font-semibold">{w.weight}</p>
-                <code className="font-mono text-caption text-primary">{w.className}</code>
-                <p className="mt-2 text-caption text-muted-foreground">{w.usage}</p>
-              </div>
-            ))}
-          </div>
-        </Section>
-
-        <Section
-          id="gaya"
-          overline="04 · Text style"
-          title="Gaya teks & warna teks"
-          description="Gaya tambahan yang bisa digabung dengan class ukuran mana pun."
-        >
-          <div className="grid gap-12 lg:grid-cols-2">
-            <div className="divide-y divide-border border-y border-border">
-              {textStyles.map((s) => (
-                <div key={s.className} className="grid gap-1 py-4">
-                  <p className={`${s.className} text-body-lg`}>{s.label}</p>
-                  <p className="text-caption text-muted-foreground">
-                    <code className="font-mono text-primary">{s.className}</code> · {s.usage}
-                  </p>
-                </div>
-              ))}
-            </div>
-            <div className="divide-y divide-border border-y border-border">
-              {textColors.map((c) => (
-                <div key={c.className} className="grid gap-1 py-4">
-                  <p className={`${c.className} text-body-lg font-medium`}>
-                    Teks dengan warna ini
-                  </p>
-                  <p className="text-caption text-muted-foreground">
-                    <code className="font-mono text-primary">{c.className}</code> · {c.usage}
-                  </p>
-                </div>
-              ))}
+        <section className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-16 md:px-8 md:py-24 lg:grid-cols-2">
+          <div>
+            <p className="text-overline uppercase text-primary">Starter template full-stack</p>
+            <h1 className="mt-4 text-display">Mulai project baru dalam hitungan menit</h1>
+            <p className="mt-6 max-w-xl text-body-lg text-muted-foreground">
+              Monorepo siap pakai: Next.js, NestJS, PostgreSQL dengan pgvector, dan design system
+              yang konsisten. Cukup empat perintah, lalu langsung membangun fitur.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <ButtonLink href="#mulai" size="lg">
+                Mulai sekarang <Icon path={icons.arrow} />
+              </ButtonLink>
+              <ButtonLink href="/design" size="lg" variant="outline">
+                Lihat design system
+              </ButtonLink>
             </div>
           </div>
-        </Section>
+          <Terminal />
+        </section>
 
-        <Section
-          id="warna"
-          overline="05 · Color"
-          title="Palet warna"
-          description="Setiap warna punya nilai untuk tema terang dan gelap. Ganti tema lewat tombol di kanan atas; kode hex di bawah ikut berubah sesuai tema yang aktif."
-        >
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {colors.map((c) => (
-              <ColorSwatch key={c.className} {...c} />
-            ))}
-          </div>
-        </Section>
-
-        <Section
-          id="spasi"
-          overline="06 · Spacing & radius"
-          title="Spasi & sudut"
-          description="Spasi memakai kelipatan 4px (p-1 = 4px, p-4 = 16px). Usahakan memakai nilai dari daftar ini saja."
-        >
-          <div className="grid gap-12 lg:grid-cols-2">
-            <div className="space-y-3">
-              {spacing.map((n) => (
-                <div key={n} className="flex items-center gap-4">
-                  <code className="w-14 shrink-0 font-mono text-caption text-primary">{n}</code>
-                  <div className="h-3 rounded-sm bg-primary" style={{ width: `${n * 4}px` }} />
-                  <span className="font-mono text-caption text-muted-foreground tabular-nums">
-                    {n * 4}px
+        {/* Stack */}
+        <section aria-labelledby="stack" className="border-t border-border">
+          <div className="mx-auto max-w-6xl px-4 py-16 md:px-8 md:py-24">
+            <SectionHeading
+              id="stack"
+              overline="Stack"
+              title="Teknologi yang sudah terpasang"
+              description="Semua bagian sudah terhubung: frontend memanggil API, API membaca database, dan semuanya berjalan dengan satu perintah."
+            />
+            <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {stack.map((s) => (
+                <li key={s.name} className="rounded-2xl border border-border p-6">
+                  <span className="inline-flex size-10 items-center justify-center rounded-lg bg-muted text-primary">
+                    <Icon path={s.icon} />
                   </span>
-                </div>
+                  <h3 className="mt-4 text-h4">{s.name}</h3>
+                  <p className="mt-2 text-body-sm text-muted-foreground">{s.desc}</p>
+                </li>
               ))}
-            </div>
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-              {radii.map((r) => (
-                <div key={r.className} className="space-y-2">
-                  <div className={`${r.className} aspect-square border-2 border-primary bg-muted`} />
-                  <code className="block font-mono text-caption text-primary">{r.className}</code>
-                  <p className="font-mono text-caption text-muted-foreground">{r.value}</p>
-                </div>
-              ))}
-            </div>
+            </ul>
           </div>
-        </Section>
+        </section>
 
-        <Section
-          id="tombol"
-          overline="07 · Button"
-          title="Tombol"
-          description="Komponen Button di src/components/ui/button.tsx. Pilih variant sesuai pentingnya aksi, dan size sesuai tempatnya."
-        >
-          <div className="grid gap-6">
-            <div className="divide-y divide-border rounded-2xl border border-border">
-              {buttonVariants.map((b) => (
-                <div key={b.variant} className="grid items-center gap-3 p-6 sm:grid-cols-[200px_1fr_auto]">
-                  <div>
-                    <code className="font-mono text-caption text-primary">variant=&quot;{b.variant}&quot;</code>
-                    <p className="text-caption text-muted-foreground">{b.usage}</p>
+        {/* Fitur */}
+        <section aria-labelledby="fitur" className="border-t border-border bg-muted">
+          <div className="mx-auto max-w-6xl px-4 py-16 md:px-8 md:py-24">
+            <SectionHeading
+              id="fitur"
+              overline="Fitur"
+              title="Bukan sekadar kerangka kosong"
+              description="Hal-hal yang biasanya dikerjakan berulang di setiap project baru sudah disiapkan dan diuji."
+            />
+            <ul className="mt-12 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+              {features.map((f) => (
+                <li key={f.title} className="flex gap-4">
+                  <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+                    <Icon path={f.icon} />
+                  </span>
+                  <div className="min-w-0">
+                    <h3 className="text-h4">{f.title}</h3>
+                    <p className="mt-2 text-body-sm text-muted-foreground">{f.desc}</p>
                   </div>
-                  <div className="flex flex-wrap gap-3">
-                    <Button variant={b.variant}>Simpan</Button>
-                    <Button variant={b.variant} disabled>
-                      Nonaktif
-                    </Button>
-                  </div>
-                </div>
+                </li>
               ))}
-            </div>
-
-            <div className="grid gap-6 lg:grid-cols-2">
-              <Demo title="Ukuran: sm · md · lg · icon">
-                <Button size="sm">Kecil</Button>
-                <Button size="md">Sedang</Button>
-                <Button size="lg">Besar</Button>
-                <Button size="icon" variant="outline" aria-label="Tambah">
-                  <PlusIcon />
-                </Button>
-              </Demo>
-              <Demo title="Dengan ikon & loading">
-                <Button>
-                  <PlusIcon /> Tambah data
-                </Button>
-                <Button variant="outline">
-                  Lanjut <ArrowIcon />
-                </Button>
-                <Button variant="destructive">
-                  <TrashIcon /> Hapus
-                </Button>
-                <Button loading>Menyimpan…</Button>
-              </Demo>
-            </div>
-
-            <Code>{`
-import { Button } from "@/components/ui/button";
-
-<Button>Simpan</Button>
-<Button variant="outline" size="sm">Batal</Button>
-<Button variant="destructive" loading={isDeleting}>Hapus</Button>
-<Button type="submit">Kirim</Button>
-`}</Code>
+            </ul>
           </div>
-        </Section>
+        </section>
 
-        <Section
-          id="form"
-          overline="08 · Form"
-          title="Form inputan"
-          description="Komponen di src/components/ui/form.tsx. Bungkus input dengan Field supaya label, teks bantuan, dan pesan error otomatis tersambung."
-        >
-          <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
-            <form className="grid gap-6 rounded-2xl border border-border p-6 md:p-8">
-              <div>
-                <h3 className="text-h3">Contoh form</h3>
-                <p className="mt-1 text-body-sm text-muted-foreground">
-                  Semua jenis inputan dalam satu form.
-                </p>
-              </div>
+        {/* Cara mulai */}
+        <section aria-labelledby="mulai" className="border-t border-border">
+          <div className="mx-auto max-w-6xl px-4 py-16 md:px-8 md:py-24">
+            <SectionHeading
+              id="mulai"
+              overline="Cara mulai"
+              title="Empat perintah, project siap"
+              description="Butuh Bun, Docker Desktop, dan GitHub CLI di laptop. Setelah itu, project baru jalan dalam beberapa menit."
+            />
+            <ol className="mt-12 grid gap-4 md:grid-cols-2">
+              {steps.map((s, i) => (
+                <li key={s.command} className="flex min-w-0 gap-4 rounded-2xl border border-border p-6">
+                  <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-muted text-body font-bold text-primary">
+                    {i + 1}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-h4">{s.title}</h3>
+                    <pre className="mt-3 rounded-lg bg-muted px-3 py-2 font-mono text-code break-words whitespace-pre-wrap">
+                      <code>{s.command}</code>
+                    </pre>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
 
-              <div className="grid gap-6 sm:grid-cols-2">
-                <Field id="nama" label="Nama lengkap" required>
-                  <Input placeholder="Budi Santoso" autoComplete="name" />
-                </Field>
-                <Field id="email" label="Email" required error="Format email tidak valid.">
-                  <Input type="email" defaultValue="budi@" autoComplete="email" />
-                </Field>
-              </div>
-
-              <Field id="password" label="Password" hint="Minimal 8 karakter, kombinasi huruf dan angka.">
-                <Input type="password" autoComplete="new-password" />
-              </Field>
-
-              <div className="grid gap-6 sm:grid-cols-2">
-                <Field id="kota" label="Kota">
-                  <Select defaultValue="">
-                    <option value="" disabled>
-                      Pilih kota
-                    </option>
-                    <option>Jakarta</option>
-                    <option>Bandung</option>
-                    <option>Surabaya</option>
-                    <option>Yogyakarta</option>
-                  </Select>
-                </Field>
-                <Field id="kode" label="Kode referal" hint="Tidak bisa diubah.">
-                  <Input defaultValue="EIGHT-2026" disabled />
-                </Field>
-              </div>
-
-              <Field id="pesan" label="Pesan" hint="Opsional.">
-                <Textarea placeholder="Tulis pesan…" />
-              </Field>
-
-              <fieldset className="grid gap-3">
-                <legend className="mb-3 text-body-sm font-medium">Paket</legend>
-                <Radio name="paket" value="basic" label="Basic" description="Gratis, untuk mencoba." defaultChecked />
-                <Radio name="paket" value="pro" label="Pro" description="Rp99.000 / bulan." />
-                <Radio name="paket" value="tim" label="Tim" description="Segera hadir." disabled />
-              </fieldset>
-
-              <fieldset className="grid gap-3">
-                <legend className="mb-3 text-body-sm font-medium">Notifikasi</legend>
-                <Checkbox name="notif" value="email" label="Email" defaultChecked />
-                <Checkbox name="notif" value="wa" label="WhatsApp" description="Hanya untuk info penting." />
-              </fieldset>
-
-              <Switch name="newsletter" label="Berlangganan newsletter" defaultChecked />
-
-              <div className="flex flex-wrap justify-end gap-3 border-t border-border pt-6">
-                <Button variant="outline">Batal</Button>
-                <Button>Simpan</Button>
-              </div>
-            </form>
-
-            <div className="grid content-start gap-6">
-              <Demo title="Status input">
-                <div className="grid w-full gap-5">
-                  <Field id="s-default" label="Default">
-                    <Input placeholder="Placeholder" />
-                  </Field>
-                  <Field id="s-filled" label="Terisi">
-                    <Input defaultValue="Teks yang sudah diisi" />
-                  </Field>
-                  <Field id="s-error" label="Error" error="Wajib diisi.">
-                    <Input />
-                  </Field>
-                  <Field id="s-disabled" label="Nonaktif">
-                    <Input defaultValue="Tidak bisa diubah" disabled />
-                  </Field>
-                </div>
-              </Demo>
-              <p className="text-caption text-muted-foreground">
-                Klik atau tekan Tab ke sebuah input untuk melihat status fokus.
-              </p>
+        {/* Ajakan akhir */}
+        <section className="mx-auto max-w-6xl px-4 pb-16 md:px-8 md:pb-24">
+          <div className="rounded-2xl bg-primary px-6 py-12 text-center text-primary-foreground md:px-12 md:py-16">
+            <h2 className="mx-auto max-w-2xl text-h2">Siap membangun project berikutnya?</h2>
+            <p className="mx-auto mt-3 max-w-xl text-body-lg">
+              Buat repo dari template, jalankan setup, dan fokus pada fitur yang penting.
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
+              <ButtonLink href={REPO_URL} size="lg" variant="secondary">
+                <Icon path={icons.github} /> Buka di GitHub
+              </ButtonLink>
             </div>
           </div>
-
-          <div className="mt-6">
-            <Code>{`
-import { Field, Input, Select, Checkbox, Switch } from "@/components/ui/form";
-
-<Field id="email" label="Email" hint="Kami tidak akan membagikannya." required>
-  <Input type="email" name="email" />
-</Field>
-
-<Field id="email" label="Email" error="Format email tidak valid.">
-  <Input type="email" name="email" />
-</Field>
-
-<Checkbox name="setuju" label="Saya setuju dengan syarat & ketentuan" />
-<Switch name="newsletter" label="Berlangganan newsletter" />
-`}</Code>
-          </div>
-        </Section>
+        </section>
       </main>
 
       <footer className="border-t border-border">
-        <div className="mx-auto max-w-6xl px-4 py-10 text-body-sm text-muted-foreground md:px-8">
-          Token didefinisikan di <code className="font-mono text-primary">globals.css</code>.
-          Ubah nilainya di sana, lalu halaman ini dan seluruh aplikasi ikut berubah.
+        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-10 sm:flex-row sm:items-center sm:justify-between md:px-8">
+          <p className="text-body-sm text-muted-foreground">
+            <span className="font-semibold text-foreground">ProjectsEight</span> · Starter template
+            Next.js + NestJS
+          </p>
+          <nav aria-label="Tautan footer" className="flex flex-wrap gap-x-6">
+            {[
+              { href: "/design", label: "Design system" },
+              { href: "/fonts", label: "Font" },
+              { href: REPO_URL, label: "GitHub" },
+            ].map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                className="py-2 text-body-sm text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {l.label}
+              </Link>
+            ))}
+          </nav>
         </div>
       </footer>
     </div>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ComponentProps } from "react";
 
 const variants = {
@@ -15,6 +16,16 @@ const sizes = {
   lg: "h-12 gap-2 px-6 text-body",
   icon: "size-10",
 };
+
+const base =
+  "inline-flex shrink-0 cursor-pointer items-center justify-center rounded-lg font-medium whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0";
+
+type StyleProps = { variant?: keyof typeof variants; size?: keyof typeof sizes };
+
+/** Class tombol, untuk elemen lain yang harus tampil seperti tombol */
+export function buttonStyles({ variant = "primary", size = "md" }: StyleProps = {}) {
+  return `${base} ${variants[variant]} ${sizes[size]}`;
+}
 
 export type ButtonProps = ComponentProps<"button"> & {
   variant?: keyof typeof variants;
@@ -38,13 +49,23 @@ export function Button({
       type={type}
       disabled={disabled || loading}
       aria-busy={loading || undefined}
-      className={`inline-flex shrink-0 cursor-pointer items-center justify-center rounded-lg font-medium whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0 ${variants[variant]} ${sizes[size]} ${className}`}
+      className={`${buttonStyles({ variant, size })} ${className}`}
       {...props}
     >
       {loading && <Spinner />}
       {children}
     </button>
   );
+}
+
+/** Link yang tampil seperti tombol (navigasi ke halaman lain). Untuk aksi, pakai `Button`. */
+export function ButtonLink({
+  variant = "primary",
+  size = "md",
+  className = "",
+  ...props
+}: ComponentProps<typeof Link> & StyleProps) {
+  return <Link className={`${buttonStyles({ variant, size })} ${className}`} {...props} />;
 }
 
 function Spinner() {
