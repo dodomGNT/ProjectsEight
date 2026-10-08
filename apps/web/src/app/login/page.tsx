@@ -21,6 +21,13 @@ export default function LoginPage() {
         sizes="100vw"
         className="-z-10 object-cover"
       />
+      {/* Penggelap latar supaya teks form terbaca (kontras ≥ 4.5:1), tanpa kartu di belakang form.
+          Ponsel: rata. Desktop: gelap di kanan (area form), memudar ke kiri. */}
+      <div
+        aria-hidden
+        data-theme="dark"
+        className="absolute inset-0 -z-10 bg-background/60 md:bg-transparent md:bg-linear-to-l md:from-background/85 md:via-background/60 md:to-transparent"
+      />
 
       {/* Latar selalu gelap, jadi area ini memakai warna tema gelap di mode apa pun.
           Ponsel: logo di tengah atas, form di bawah. Desktop (md): logo kiri atas, form kanan bawah */}
@@ -32,7 +39,7 @@ export default function LoginPage() {
           <LogoGroup />
         </div>
 
-        <main className="w-full rounded-2xl border border-foreground/15 bg-background/40 p-6 shadow-sm backdrop-blur-md md:max-w-md md:self-end md:p-8">
+        <main className="w-full md:max-w-md md:self-end">
           <h1 className="text-h2">Masuk</h1>
           <p className="mt-2 text-body text-muted-foreground">
             Masukkan email dan password akun Anda.

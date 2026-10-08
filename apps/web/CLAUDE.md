@@ -64,6 +64,8 @@ Dilarang: hex/rgb langsung (`#fff`, `bg-[#123456]`), palet bawaan Tailwind (`zin
 
 **Area yang selalu gelap** (mis. di atas foto/gambar latar gelap): bungkus dengan `<div data-theme="dark" className="text-foreground">`. Semua token di dalamnya memakai nilai tema gelap, apa pun tema situsnya. Jangan memakai `text-white` / `bg-black` untuk keperluan ini.
 
+**Teks di atas gambar** wajib kontras minimal **4.5:1** (teks biasa) terhadap bagian gambar di belakangnya. Kalau kurang, tambahkan lapisan penggelap token (`bg-background/60` atau gradasi `from-background/…`) di atas gambar, bukan mengganti warna teks ke nilai di luar token.
+
 ## Spasi, ukuran, sudut
 
 - Spasi (padding, margin, gap) pakai skala Tailwind (kelipatan 4px: `p-4` = 16px). Nilai arbitrary seperti `p-[13px]` dilarang. Nilai yang dipakai:
@@ -129,7 +131,8 @@ Satu layar penuh dengan gambar latar (contoh: `src/app/login/page.tsx`):
 - **Tanpa latar putih**: area logo dan form dibungkus `<div data-theme="dark" className="… text-foreground">`, karena gambar latarnya selalu gelap. Semua warna di dalamnya otomatis memakai token tema gelap, di mode terang maupun gelap.
 - **Logo**: `LogoGroup` langsung di atas gambar latar, tanpa kotak/latar.
 - **Posisi**: ponsel → logo di tengah atas, form selebar layar di bawah. Mulai `md:` → logo kiri atas (`md:self-start`), form kanan bawah (`md:self-end md:max-w-md`). Wadah `flex flex-col justify-between`, jadi logo dan form tidak pernah bertumpuk.
-- **Form**: kartu kaca gelap transparan `bg-background/40 backdrop-blur-md border border-foreground/15` (bukan putih), berisi `Field` + `Input` + `Checkbox` + `Button type="submit" size="lg" className="w-full"`. Validasi sendiri (`noValidate`), pesan error lewat prop `error`, fokus pindah ke input pertama yang salah.
+- **Form**: langsung di atas latar, **tanpa kartu** (tanpa latar, blur, border, atau bayangan). Isinya `Field` + `Input` + `Checkbox` + `Button type="submit" size="lg" className="w-full"`. Validasi sendiri (`noValidate`), pesan error lewat prop `error`, fokus pindah ke input pertama yang salah.
+- **Penggelap latar**: karena form tidak punya kartu, di atas gambar latar ada lapisan `absolute inset-0 -z-10` dengan `data-theme="dark"`: ponsel `bg-background/60`, desktop gradasi `md:bg-linear-to-l md:from-background/85 md:via-background/60 md:to-transparent` (gelap di area form, memudar ke kiri). Semua teks form wajib kontras ≥ 4.5:1 terhadap latarnya; kalau gambar latar diganti, cek ulang kontrasnya dan tebalkan lapisan ini bila perlu.
 - Link "← Kembali ke beranda" ada di bagian bawah kartu form. Halaman ini tidak memakai `ThemeToggle`, karena area login selalu gelap.
 - **Status**: login belum terhubung ke backend (belum ada endpoint autentikasi di `apps/api`). Setelah validasi lolos, form hanya menampilkan pesan bahwa login belum tersedia. Jangan menampilkan seolah-olah login berhasil sebelum backend-nya dibuat.
 
