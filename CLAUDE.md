@@ -9,10 +9,12 @@ Monorepo Turborepo + Bun: `apps/web` (Next.js 16, Tailwind v4) dan `apps/api` (N
 File rule: `CLAUDE.md` (root) untuk aturan umum, `apps/web/CLAUDE.md` untuk desain & frontend, `apps/api/CLAUDE.md` untuk backend (buat kalau belum ada).
 
 1. **Catat tanpa menunggu diminta.** Setiap perubahan yang menetapkan pola baru (komponen, token, layout, konvensi, struktur folder, perintah, cara kerja) langsung dicatat ke file rule yang sesuai, di commit yang sama dengan perubahannya. Kalau perintah atau struktur berubah, perbarui juga `README.md` yang terkait.
-2. **Jangan mengubah atau menghapus rule yang sudah ada** tanpa permintaan user. Rule baru ditambahkan, bukan menimpa yang lama.
-   - Rule lama hanya boleh diubah kalau user secara eksplisit meminta perubahan itu (mis. "ganti font mono jadi Atkinson" → rule font boleh diperbarui).
-   - Kalau sebuah permintaan bertentangan dengan rule yang ada, **tanya user dulu**, jangan diam-diam mengubah rule atau melanggarnya.
-3. **Laporkan.** Di akhir pekerjaan, sebutkan rule apa yang ditambah atau diubah, dan di file mana.
+2. **Rule lama boleh diubah atau disesuaikan kalau memang diperlukan**, asal **tidak mengacaukan yang sudah ada**:
+   - Utamakan menambah atau melengkapi; ubah rule lama hanya kalau sudah tidak sesuai dengan kode, atau perlu disesuaikan dengan perubahan baru.
+   - Setelah rule diubah, kode yang ada harus tetap sesuai dengan rule tersebut (cek dengan `bun run lint`, dan perbaiki kode yang terdampak).
+   - Jangan menghapus rule yang masih berlaku hanya karena tidak sedang dipakai.
+   - Kalau perubahan rule akan mengubah tampilan atau perilaku yang sudah ada secara besar (mis. ganti warna utama, ganti struktur halaman), **tanya user dulu**.
+3. **Laporkan.** Di akhir pekerjaan, sebutkan rule apa yang ditambah atau diubah, di file mana, dan (kalau diubah) alasannya.
 4. Rule harus sesuai dengan kode yang benar-benar ada. Jangan mencatat sesuatu yang belum dibuat atau belum dicek.
 
 ## Aturan
