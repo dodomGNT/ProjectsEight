@@ -1,4 +1,4 @@
-import { ColorSwatch, TypeRow } from "@/components/style-guide";
+import { AnimationDemo, ColorSwatch, TypeRow } from "@/components/style-guide";
 import Link from "next/link";
 import { LogoGroup } from "@/components/logo-group";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -133,6 +133,7 @@ const sections = [
   { id: "tombol", label: "Tombol" },
   { id: "form", label: "Form" },
   { id: "navigasi", label: "Navigasi" },
+  { id: "animasi", label: "Animasi" },
 ];
 
 const buttonVariants = [
@@ -626,6 +627,25 @@ const navLinks = [
     </div>
   </div>
 </header>
+`}</Code>
+          </div>
+        </Section>
+        <Section
+          id="animasi"
+          overline="10 · Motion"
+          title="Animasi"
+          description="Token animate-bounce-in: elemen muncul dari bawah dengan sedikit pantulan, sekali saat tampil. Selalu dipakai dengan motion-safe: supaya tidak berjalan bagi pengguna yang memilih kurangi gerakan."
+        >
+          <div className="grid gap-6 lg:grid-cols-2">
+            <Demo title="motion-safe:animate-bounce-in">
+              <AnimationDemo className="motion-safe:animate-bounce-in" />
+            </Demo>
+            <Code>{`
+<main className="motion-safe:animate-bounce-in">
+  …
+</main>
+
+// Dipakai di: form login (src/app/login/page.tsx)
 `}</Code>
           </div>
         </Section>

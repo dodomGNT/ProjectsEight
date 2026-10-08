@@ -102,6 +102,7 @@ export function Field({
   required,
   children,
   className = "",
+  errorClassName = "text-destructive",
 }: {
   id: string;
   label: ReactNode;
@@ -110,6 +111,8 @@ export function Field({
   required?: boolean;
   children: ReactElement<Record<string, unknown>>;
   className?: string;
+  /** Warna pesan error. Default merah; di atas gambar/kaca tipis pakai `text-foreground` (border input tetap merah). */
+  errorClassName?: string;
 }) {
   // Kalau ada error, hint disembunyikan dan diganti pesan error
   const describedBy = error ? `${id}-error` : hint ? `${id}-hint` : undefined;
@@ -134,7 +137,7 @@ export function Field({
         </p>
       )}
       {error && (
-        <p id={`${id}-error`} className="text-caption text-destructive">
+        <p id={`${id}-error`} className={`text-caption ${errorClassName}`}>
           {error}
         </p>
       )}

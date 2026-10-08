@@ -40,10 +40,10 @@ export function LoginForm() {
 
   return (
     <form noValidate onSubmit={onSubmit} className="grid gap-5">
-      <Field id="email" label="Email" error={errors.email} required>
+      <Field id="email" label="Email" error={errors.email} errorClassName="text-foreground" required>
         <Input name="email" type="email" autoComplete="email" placeholder="nama@email.com" />
       </Field>
-      <Field id="password" label="Password" error={errors.password} required>
+      <Field id="password" label="Password" error={errors.password} errorClassName="text-foreground" required>
         <Input name="password" type="password" autoComplete="current-password" />
       </Field>
       <Checkbox name="remember" label="Ingat saya" />

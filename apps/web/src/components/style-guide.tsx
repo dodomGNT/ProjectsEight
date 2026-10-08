@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
 
 /**
  * Komponen untuk halaman dokumentasi design system.
@@ -127,6 +128,26 @@ export function ColorSwatch({
         </p>
         <p className="text-caption text-muted-foreground">{usage}</p>
       </div>
+    </div>
+  );
+}
+
+/** Contoh animasi yang bisa diputar ulang (untuk halaman dokumentasi). */
+export function AnimationDemo({ className }: { className: string }) {
+  const [run, setRun] = useState(0);
+
+  return (
+    <div className="flex w-full flex-col items-start gap-4">
+      <div
+        key={run}
+        className={`w-full max-w-xs rounded-2xl border border-border bg-muted p-6 ${className}`}
+      >
+        <p className="text-h4">Kartu contoh</p>
+        <p className="mt-1 text-body-sm text-muted-foreground">Muncul dengan sedikit pantulan.</p>
+      </div>
+      <Button variant="outline" size="sm" onClick={() => setRun((n) => n + 1)}>
+        Putar ulang
+      </Button>
     </div>
   );
 }

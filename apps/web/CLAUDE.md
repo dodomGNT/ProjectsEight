@@ -130,12 +130,15 @@ Satu layar penuh dengan gambar latar (contoh: `src/app/login/page.tsx`):
 
 - **Latar**: `next/image` dengan `fill`, `sizes="100vw"`, `priority`, `placeholder="blur"`, `alt=""` (dekoratif), `className="-z-10 object-cover object-[75%_50%]"`; wadah halaman `relative isolate min-h-dvh`. File latar `src/app/login/background.png` (gambar buatan user), di-**import** (`import background from "./background.png"`), sehingga Next.js otomatis mengecilkan & mengonversinya (±30 KB di desktop, ±7 KB di ponsel). Kalau formatnya diganti, ubah juga baris import-nya.
 - **Isi latar saat ini**: gedung pemerintahan dengan bendera Merah Putih di sisi kanan, langit biru terang, dan lengkungan biru di kiri-bawah. Gedung ada di sisi kanan gambar; `object-[75%_50%]` menjaga gedung tetap terlihat di layar sempit.
-- **Tanpa latar putih**: area logo dan form dibungkus `<div data-theme="dark" className="… text-foreground">`, karena gambar latarnya selalu gelap. Semua warna di dalamnya otomatis memakai token tema gelap, di mode terang maupun gelap.
+- **Tanpa latar putih**: area logo dan form dibungkus `<div data-theme="dark" className="… text-foreground">`. Semua warna di dalamnya memakai token tema gelap, di mode terang maupun gelap.
 - **Logo**: `LogoGroup` langsung di atas gambar latar, tanpa kotak/latar. Di desktop logo berada di area gambar yang terang (kiri atas), jadi logo asli harus kontras dengan biru muda (mis. putih atau navy).
 - **Posisi**: ponsel → logo di tengah atas, form selebar layar di bawah. Mulai `md:` → logo kiri atas (`md:self-start`), form kanan bawah (`md:self-end md:max-w-md`). Wadah `flex flex-col justify-between`, jadi logo dan form tidak pernah bertumpuk.
-- **Form**: langsung di atas latar, **tanpa kartu** (tanpa latar, blur, border, atau bayangan). Isinya `Field` + `Input` + `Checkbox` + `Button type="submit" size="lg" className="w-full"`. Validasi sendiri (`noValidate`), pesan error lewat prop `error`, fokus pindah ke input pertama yang salah.
-- **Penggelap latar**: karena form tidak punya kartu dan gambarnya terang, di atas gambar latar ada lapisan `absolute inset-0 -z-10` dengan `data-theme="dark"`: ponsel gradasi `bg-linear-to-t from-background/90 via-background/85 to-background/55` (gelap di bawah/area form, lebih terang di atas), desktop gradasi `md:bg-linear-to-l md:from-background/95 md:via-background/80 md:to-transparent` (gelap di area form, sisi kiri tetap terang). Semua teks form wajib kontras ≥ 4.5:1 terhadap latarnya; kalau gambar latar diganti, cek ulang kontrasnya dan sesuaikan lapisan ini.
-- Link "← Kembali ke beranda" ada di bagian bawah kartu form. Halaman ini tidak memakai `ThemeToggle`, karena area login selalu gelap.
+- **Form**: kartu **kaca tipis** `rounded-2xl border border-foreground/15 bg-background/55 backdrop-blur-md p-6 md:p-8`, dengan animasi masuk `motion-safe:animate-bounce-in`. Isinya `Field` + `Input` + `Checkbox` + `Button type="submit" size="lg" className="w-full"`. Validasi sendiri (`noValidate`), pesan error lewat prop `error`, fokus pindah ke input pertama yang salah.
+  - Tidak ada lapisan penggelap di atas gambar latar; keterbacaan teks dijaga oleh kaca form saja.
+  - `bg-background/55` adalah ketebalan kaca paling tipis yang masih membuat teks putih lolos 4.5:1 di atas latar terang ini. Jangan ditipiskan lagi tanpa mengukur ulang kontras.
+  - Di atas kaca tipis, teks abu (`text-muted-foreground`) dan merah (`text-destructive`) tidak cukup kontras. Karena itu deskripsi memakai `text-foreground`, dan pesan error memakai `errorClassName="text-foreground"` (tanda error tetap terlihat dari border input yang merah dan tanda `*`).
+  - Kalau gambar latar diganti, cek ulang kontras semua teks form.
+- Link "← Kembali ke beranda" ada di bagian bawah kartu form. Halaman ini tidak memakai `ThemeToggle`, karena area login selalu memakai warna tema gelap.
 - **Status**: login belum terhubung ke backend (belum ada endpoint autentikasi di `apps/api`). Setelah validasi lolos, form hanya menampilkan pesan bahwa login belum tersedia. Jangan menampilkan seolah-olah login berhasil sebelum backend-nya dibuat.
 
 ## Komponen
@@ -149,7 +152,7 @@ Selalu pakai komponen yang ada. Jangan membuat tombol/input dari elemen mentah d
 - Link yang tampil seperti tombol (navigasi): `ButtonLink` dari `@/components/ui/button` (prop sama dengan `Button`). Elemen lain yang perlu gaya tombol: `buttonStyles({ variant, size })`.
   - Untuk menyembunyikan tombol per breakpoint, **bungkus** dengan elemen lain (`<div className="hidden sm:block">`). `hidden` di class tombol itu sendiri kalah oleh `inline-flex`.
 - Form: dari `@/components/ui/form`
-  - Setiap input dibungkus `Field` (label, `hint`, `error`, `required`)
+  - Setiap input dibungkus `Field` (label, `hint`, `error`, `required`). Warna pesan error default merah; `errorClassName` hanya untuk area di atas gambar/kaca tipis yang membuat merah tidak terbaca.
   - Komponen: `Input`, `Textarea`, `Select`, `Checkbox`, `Radio`, `Switch`
   - Grup radio/checkbox pakai `<fieldset>` + `<legend>`
 - Tema: `ThemeToggle` dari `@/components/theme-toggle`
@@ -162,6 +165,12 @@ Letak komponen:
 - `ThemeToggle` adalah satu-satunya komponen yang memakai `<button>` mentah, karena bentuknya kontrol bersegmen (bukan tombol biasa). Di luar komponen, selalu pakai `Button`.
 
 Setiap komponen yang dipakai di lebih dari satu tempat wajib didokumentasikan di halaman `/design`.
+
+## Animasi
+
+- Token: `animate-bounce-in` (di `globals.css`): elemen muncul dari bawah dengan sedikit pantulan, sekali saat tampil (±0,8 detik).
+- Selalu ditulis `motion-safe:animate-bounce-in`, supaya tidak berjalan untuk pengguna yang memilih "kurangi gerakan".
+- Pakai untuk elemen utama yang muncul (mis. form login), jangan untuk banyak elemen sekaligus atau animasi berulang.
 
 ## Mengubah atau menambah token
 
