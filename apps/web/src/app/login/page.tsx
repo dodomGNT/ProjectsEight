@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { LogoGroup } from "@/components/logo-group";
+import background from "./background.svg";
 import { LoginForm } from "./login-form";
 
 export const metadata: Metadata = {
@@ -12,10 +13,12 @@ export const metadata: Metadata = {
 export default function LoginPage() {
   return (
     <div className="relative isolate flex min-h-dvh flex-1 flex-col">
-      {/* Latar: siluet Kantor Pusat Bank Indonesia (public/login/background.svg).
+      {/* Latar: siluet Kantor Pusat Bank Indonesia (./background.svg).
+          Di-import (bukan dari public/) supaya alamatnya berisi hash isi file: setiap gambar diganti,
+          browser pasti mengambil versi baru dan tidak memakai cache lama.
           object-position 37% menjaga menara kembar (di 37% lebar gambar) tetap terlihat di layar sempit. */}
       <Image
-        src="/login/background.svg"
+        src={background}
         alt=""
         fill
         priority

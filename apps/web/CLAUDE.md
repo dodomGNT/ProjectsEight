@@ -98,6 +98,7 @@ Aturan:
 - Ukuran teks: `text-display` sudah menyesuaikan layar. Judul lain boleh berganti token per breakpoint (`text-h2 md:text-h1`), tetap tanpa ukuran arbitrary.
 - Interaksi yang hanya muncul saat `hover:` harus punya cara lain di layar sentuh (tetap terlihat, atau lewat tap/focus).
 - Gambar: pakai `next/image`. Gambar yang lebarnya mengikuti layar wajib diberi `sizes`; gambar berukuran tetap (logo, ikon) cukup `width`/`height` + class tinggi (mis. `h-7 w-auto`).
+- Gambar milik satu halaman/komponen sebaiknya di-**import** dari file di sebelahnya (`import gambar from "./gambar.svg"`), bukan dari `public/`. Alamat hasil import berisi hash isi file, jadi browser (terutama Safari) tidak menahan versi lama setelah gambar diganti. File di `public/` (mis. `public/logos/`) memakai alamat tetap: setelah menggantinya, muat ulang halaman tanpa cache (Safari: Cmd + Option + R).
 
 ### Navigasi
 
@@ -127,7 +128,7 @@ Lebar tetap dan kolom grid ber-px tanpa breakpoint **dicek otomatis oleh lint**.
 
 Satu layar penuh dengan gambar latar (contoh: `src/app/login/page.tsx`):
 
-- **Latar**: `next/image` dengan `fill`, `sizes="100vw"`, `priority`, `alt=""` (dekoratif), `className="-z-10 object-cover object-[37%_100%]"`; wadah halaman `relative isolate min-h-dvh`. File latar di `public/login/background.svg`, boleh diganti foto (jpg/png/webp) dengan menyesuaikan `src`.
+- **Latar**: `next/image` dengan `fill`, `sizes="100vw"`, `priority`, `alt=""` (dekoratif), `className="-z-10 object-cover object-[37%_100%]"`; wadah halaman `relative isolate min-h-dvh`. File latar `src/app/login/background.svg`, di-**import** (`import background from "./background.svg"`), boleh diganti foto (jpg/png/webp) dengan mengganti file dan baris import-nya.
 - **Isi latar saat ini**: langit gradasi biru BI + **siluet Kantor Pusat Bank Indonesia** (menara kembar Jl. M.H. Thamrin, disederhanakan dari foto referensi) + gedung lama beratap lebar + kota samar. Menara ada di ±37% lebar gambar; `object-[37%_100%]` menjaga menara tetap terlihat di layar sempit.
 - **Logo BI di latar** hanya berupa lambang lingkaran BI kecil yang menempel di gedung (pita kaca puncak menara kiri), diambil dari file logo resmi (Wikimedia Commons, public domain, merek terdaftar BI), bukan digambar ulang. Tidak ada logo BI besar yang berdiri sendiri di latar. Posisinya tidak boleh berada di belakang teks form (cek kontras di 390px dan 1280px).
 - **Tanpa latar putih**: area logo dan form dibungkus `<div data-theme="dark" className="… text-foreground">`, karena gambar latarnya selalu gelap. Semua warna di dalamnya otomatis memakai token tema gelap, di mode terang maupun gelap.
