@@ -18,13 +18,13 @@ function useComputedStyle<T>(read: (style: CSSStyleDeclaration) => T) {
     const update = () => setValue(read(getComputedStyle(el)));
     update();
 
-    // Hitung ulang saat ukuran layar atau tema (light/dark) berubah
+    // Hitung ulang saat ukuran layar atau tema (data-theme di <html>) berubah
     window.addEventListener("resize", update);
-    const media = window.matchMedia("(prefers-color-scheme: dark)");
-    media.addEventListener("change", update);
+    const observer = new MutationObserver(update);
+    observer.observe(document.documentElement, { attributeFilter: ["data-theme"] });
     return () => {
       window.removeEventListener("resize", update);
-      media.removeEventListener("change", update);
+      observer.disconnect();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

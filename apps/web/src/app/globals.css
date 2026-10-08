@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* `dark:` mengikuti tema yang dipilih (atribut data-theme di <html>), bukan langsung setting OS */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 /*
  * ─────────────────────────────────────────────────────────────
  *  Design tokens
@@ -8,9 +11,15 @@
  * ─────────────────────────────────────────────────────────────
  */
 
+/*
+ * Tema dipilih lewat tombol Terang / Gelap / Sistem di header.
+ * Script di src/app/layout.tsx memasang data-theme="light" | "dark" di <html>
+ * sebelum halaman tampil, jadi tidak ada kedipan warna.
+ */
+
 /* ── Warna (light mode) ── */
 :root {
-  color-scheme: light dark; /* checkbox, radio, scrollbar bawaan browser ikut tema */
+  color-scheme: light; /* checkbox, radio, scrollbar bawaan browser ikut tema */
   --background: #ffffff;
   --foreground: #0a0a0a;
   --muted: #f4f4f5;
@@ -24,19 +33,18 @@
 }
 
 /* ── Warna (dark mode) ── */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --muted: #18181b;
-    --muted-foreground: #a1a1aa;
-    --border: #27272a;
-    --primary: #818cf8;
-    --primary-foreground: #0a0a0a;
-    --accent: #fbbf24;
-    --destructive: #f87171;
-    --destructive-foreground: #0a0a0a;
-  }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --muted: #18181b;
+  --muted-foreground: #a1a1aa;
+  --border: #27272a;
+  --primary: #818cf8;
+  --primary-foreground: #0a0a0a;
+  --accent: #fbbf24;
+  --destructive: #f87171;
+  --destructive-foreground: #0a0a0a;
 }
 
 /* Warna & font yang nilainya berasal dari variabel lain */

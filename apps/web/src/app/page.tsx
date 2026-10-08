@@ -1,4 +1,5 @@
 import { ColorSwatch, TypeRow } from "@/components/style-guide";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Checkbox, Field, Input, Radio, Select, Switch, Textarea } from "@/components/ui/form";
 
@@ -201,11 +202,11 @@ export default function Home() {
   return (
     <div className="flex-1">
       <header className="sticky top-0 z-10 border-b border-border bg-background/80 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center gap-6 overflow-x-auto px-4 py-4 md:px-8">
+        <div className="mx-auto flex max-w-6xl items-center gap-6 px-4 py-3 md:px-8">
           <a href="#" className="shrink-0 text-body-sm font-semibold">
             ProjectsEight
           </a>
-          <nav className="flex gap-5">
+          <nav className="flex min-w-0 flex-1 gap-5 overflow-x-auto [scrollbar-width:none]">
             {sections.map((s) => (
               <a
                 key={s.id}
@@ -216,6 +217,7 @@ export default function Home() {
               </a>
             ))}
           </nav>
+          <ThemeToggle />
         </div>
       </header>
 
@@ -332,7 +334,7 @@ export default function Home() {
           id="warna"
           overline="05 · Color"
           title="Palet warna"
-          description="Warna otomatis berganti saat mode gelap aktif. Kode hex di bawah dibaca dari tema yang sedang dipakai."
+          description="Setiap warna punya nilai untuk tema terang dan gelap. Ganti tema lewat tombol di kanan atas; kode hex di bawah ikut berubah sesuai tema yang aktif."
         >
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {colors.map((c) => (
