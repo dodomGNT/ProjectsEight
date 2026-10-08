@@ -2,7 +2,9 @@
 
 Backend ProjectsEight: **NestJS 12** + **Drizzle ORM** + **PostgreSQL** (dengan pgvector).
 
-Cara menjalankan, setup, dan `.env` ada di [README utama](../../README.md). Database dijalankan lewat `docker compose up -d` dari root.
+Cara menjalankan, setup, dan `.env` ada di [README utama](../../README.md). Database dijalankan lewat `docker compose up -d` dari root. Aturan backend (keamanan endpoint, dll.) ada di [CLAUDE.md](./CLAUDE.md).
+
+> **Perhatian:** belum ada autentikasi. `GET /users` hanya contoh dan mengembalikan semua user tanpa login; lindungi atau hapus sebelum ada data sungguhan.
 
 ## Struktur
 

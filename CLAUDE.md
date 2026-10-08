@@ -6,7 +6,7 @@ Monorepo Turborepo + Bun: `apps/web` (Next.js 16, Tailwind v4) dan `apps/api` (N
 
 ## Rule harus selalu terbaru
 
-File rule: `CLAUDE.md` (root) untuk aturan umum, `apps/web/CLAUDE.md` untuk desain & frontend, `apps/api/CLAUDE.md` untuk backend (buat kalau belum ada).
+File rule: `CLAUDE.md` (root) untuk aturan umum, `apps/web/CLAUDE.md` untuk desain & frontend, `apps/api/CLAUDE.md` untuk backend.
 
 1. **Catat tanpa menunggu diminta.** Setiap perubahan yang menetapkan pola baru (komponen, token, layout, konvensi, struktur folder, perintah, cara kerja) langsung dicatat ke file rule yang sesuai, di commit yang sama dengan perubahannya. Kalau perintah atau struktur berubah, perbarui juga `README.md` yang terkait.
 2. **Rule lama boleh diubah atau disesuaikan kalau memang diperlukan**, asal **tidak mengacaukan yang sudah ada**:
@@ -21,6 +21,7 @@ File rule: `CLAUDE.md` (root) untuk aturan umum, `apps/web/CLAUDE.md` untuk desa
 
 - **UI / tampilan**: wajib mengikuti aturan desain di `apps/web/CLAUDE.md` (tipografi, warna, spasi, responsif, komponen).
 - **Environment**: satu file `.env` di root, dibaca oleh Docker Compose, NestJS, Drizzle Kit, dan Next.js. Jangan membuat `.env` di dalam `apps/*`. Variabel baru juga ditambahkan ke `.env.example` dan ke `scripts/setup.ts`.
+- **Port database** di `docker-compose.yml` hanya terbuka ke `127.0.0.1` (bukan ke jaringan), karena password development-nya lemah. Jangan diubah ke `"5432:5432"` tanpa persetujuan user.
 - **Database**: ubah tabel di `apps/api/src/db/schema.ts`, lalu `bun run db:generate && bun run db:migrate` dari `apps/api`. Jangan mengedit file di `apps/api/drizzle/` secara manual, kecuali migrasi custom (`drizzle-kit generate --custom`).
 - **NestJS** memakai ESM: import lokal wajib berakhiran `.js` (`'./db/db.module.js'`).
 - **Package manager**: Bun (`bun add`, `bunx`), bukan npm/yarn.

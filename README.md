@@ -87,15 +87,21 @@ Variabel berawalan `NEXT_PUBLIC_` ikut terkirim ke browser, jadi jangan simpan r
 
 ```
 apps/
-  web/                 Next.js (App Router, Tailwind)
+  web/                 Next.js (App Router, Tailwind): halaman /, /login, /design, /fonts
+    CLAUDE.md          aturan desain (tipografi, warna, responsif, komponen)
   api/                 NestJS
+    CLAUDE.md          aturan backend
     src/db/schema.ts   definisi tabel (Drizzle)
     src/db/db.module.ts koneksi database
     drizzle/           file migrasi SQL
 packages/              kode bersama (opsional)
 scripts/setup.ts       script setup project baru
-docker-compose.yml     PostgreSQL + pgvector
+docker-compose.yml     PostgreSQL + pgvector (hanya bisa diakses dari laptop sendiri)
+CLAUDE.md              aturan umum project untuk Claude Code
+.claude/settings.json  plugin Claude Code yang disarankan
 ```
+
+Detail frontend (halaman, komponen, logo, latar login) ada di [`apps/web/README.md`](apps/web/README.md); detail backend di [`apps/api/README.md`](apps/api/README.md).
 
 ## pgvector
 

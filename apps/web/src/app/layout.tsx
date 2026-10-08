@@ -8,7 +8,8 @@ const fontSans = Atkinson_Hyperlegible_Next({
   variable: "--font-atkinson",
   subsets: ["latin", "latin-ext"],
   style: ["normal", "italic"],
-  // Next.js belum punya data metrik font ini untuk membuat font cadangan otomatis
+  // Next.js belum punya data metrik font ini untuk membuat font cadangan otomatis.
+  // Turbopack tetap mencetak peringatan "Failed to find font override values" saat build; aman diabaikan.
   adjustFontFallback: false,
   fallback: ["ui-sans-serif", "system-ui", "sans-serif"],
 });

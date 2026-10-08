@@ -22,14 +22,16 @@ export const metadata: Metadata = {
 // next/font mewajibkan nilai ditulis langsung (tidak boleh lewat variabel).
 const geist = Geist({ subsets: ["latin"], weight: ["400", "500", "600", "700"] });
 const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700"] });
-const atkinson = Atkinson_Hyperlegible_Next({ subsets: ["latin"], weight: ["400", "500", "600", "700"] });
+// adjustFontFallback: false → Next.js belum punya data metrik font Atkinson (sama seperti di layout.tsx).
+// Turbopack tetap mencetak peringatan "Failed to find font override values" saat build; aman diabaikan.
+const atkinson = Atkinson_Hyperlegible_Next({ subsets: ["latin"], weight: ["400", "500", "600", "700"], adjustFontFallback: false });
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700"] });
 const lexend = Lexend({ subsets: ["latin"], weight: ["400", "500", "600", "700"] });
 const plex = IBM_Plex_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700"] });
 
 const geistMono = Geist_Mono({ subsets: ["latin"], weight: ["400"] });
 const jetbrains = JetBrains_Mono({ subsets: ["latin"], weight: ["400"] });
-const atkinsonMono = Atkinson_Hyperlegible_Mono({ subsets: ["latin"], weight: ["400"] });
+const atkinsonMono = Atkinson_Hyperlegible_Mono({ subsets: ["latin"], weight: ["400"], adjustFontFallback: false });
 
 const sansFonts = [
   {
