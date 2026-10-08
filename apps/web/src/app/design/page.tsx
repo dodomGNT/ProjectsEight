@@ -1,5 +1,6 @@
 import { ColorSwatch, TypeRow } from "@/components/style-guide";
 import Link from "next/link";
+import { LogoGroup } from "@/components/logo-group";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Checkbox, Field, Input, Radio, Select, Switch, Textarea } from "@/components/ui/form";
@@ -587,8 +588,22 @@ import { Field, Input, Select, Checkbox, Switch } from "@/components/ui/form";
             </div>
           </div>
 
+          <div className="mt-6 grid gap-6 lg:grid-cols-2">
+            <Demo title="LogoGroup · logo di header">
+              <LogoGroup />
+            </Demo>
+            <Demo title="ThemeToggle · Terang / Gelap / Sistem">
+              <ThemeToggle />
+            </Demo>
+          </div>
+          <p className="mt-3 text-caption text-muted-foreground">
+            Ganti logo di public/logos/ dan daftar logos di src/components/logo-group.tsx. Tinggi logo 24px di ponsel, 28px mulai sm.
+          </p>
+
           <div className="mt-6">
             <Code>{`
+import { LogoGroup } from "@/components/logo-group";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { MobileNav } from "@/components/ui/mobile-nav";
 
 const navLinks = [

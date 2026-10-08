@@ -4,7 +4,7 @@
 
 Semua UI wajib mengikuti design system. Sumber kebenarannya:
 
-- **Token**: `src/app/globals.css`, satu-satunya tempat nilai font, ukuran, warna ditentukan
+- **Token**: `src/app/globals.css`, satu-satunya tempat nilai ukuran teks, warna, dan nama font (`--font-sans`, `--font-mono`) ditentukan. File font-nya dimuat di `src/app/layout.tsx` lewat `next/font`.
 - **Dokumentasi visual**: halaman `/design` (`src/app/design/page.tsx`)
 - **Komponen**: `src/components/ui/`
 
@@ -64,7 +64,10 @@ Dilarang: hex/rgb langsung (`#fff`, `bg-[#123456]`), palet bawaan Tailwind (`zin
 
 ## Spasi, ukuran, sudut
 
-- Spasi (padding, margin, gap) pakai skala Tailwind (kelipatan 4px: `p-4` = 16px). Utamakan `1 2 3 4 6 8 12 16 24`; `0.5` dan `1.5` untuk jarak sangat kecil. Nilai arbitrary seperti `p-[13px]` dilarang.
+- Spasi (padding, margin, gap) pakai skala Tailwind (kelipatan 4px: `p-4` = 16px). Nilai arbitrary seperti `p-[13px]` dilarang. Nilai yang dipakai:
+  - Jarak kecil & elemen: `0.5 1 1.5 2 3 4 5 6 8`
+  - Jarak antar kartu/grup: `8 10 12`
+  - Jarak section: `py-16 md:py-24` (hero boleh `py-20 md:py-32`)
 - Lebar konten halaman: `mx-auto max-w-6xl px-4 md:px-8`.
 - Sudut: `rounded-md` chip/kode kecil · `rounded-lg` tombol & input · `rounded-xl` / `rounded-2xl` card & panel · `rounded-full` badge/avatar.
 - Arbitrary value untuk layout (mis. `md:grid-cols-[260px_1fr]`) boleh, asal aman di ponsel (lihat Responsif). Untuk tipografi dan warna tidak boleh.
@@ -90,7 +93,7 @@ Aturan:
 - **Target sentuh minimal 24px** tingginya (link, ikon, checkbox termasuk label-nya). Tombol & input sudah 40px. Link teks di navigasi diberi `py-2`.
 - Ukuran teks: `text-display` sudah menyesuaikan layar. Judul lain boleh berganti token per breakpoint (`text-h2 md:text-h1`), tetap tanpa ukuran arbitrary.
 - Interaksi yang hanya muncul saat `hover:` harus punya cara lain di layar sentuh (tetap terlihat, atau lewat tap/focus).
-- Gambar: `next/image` dengan `sizes`, atau `max-w-full h-auto`.
+- Gambar: pakai `next/image`. Gambar yang lebarnya mengikuti layar wajib diberi `sizes`; gambar berukuran tetap (logo, ikon) cukup `width`/`height` + class tinggi (mis. `h-7 w-auto`).
 
 ### Navigasi
 
@@ -132,7 +135,12 @@ Selalu pakai komponen yang ada. Jangan membuat tombol/input dari elemen mentah d
 - Tema: `ThemeToggle` dari `@/components/theme-toggle`
 - Navigasi ponsel: `MobileNav` dari `@/components/ui/mobile-nav` (lihat bagian Navigasi di bawah)
 
-Komponen baru yang dipakai di lebih dari satu tempat: taruh di `src/components/ui/`, ikuti pola yang ada (props `variant`/`size`, `className` bisa ditambah), lalu dokumentasikan di halaman `/design`.
+Letak komponen:
+- `src/components/ui/`: komponen dasar yang generik (tombol, form, navigasi). Ikuti pola yang ada (props `variant`/`size`, `className` bisa ditambah).
+- `src/components/`: komponen khusus situs ini (`ThemeToggle`, `LogoGroup`) dan pembantu halaman dokumentasi (`style-guide.tsx`).
+- `ThemeToggle` adalah satu-satunya komponen yang memakai `<button>` mentah, karena bentuknya kontrol bersegmen (bukan tombol biasa). Di luar komponen, selalu pakai `Button`.
+
+Setiap komponen yang dipakai di lebih dari satu tempat wajib didokumentasikan di halaman `/design`.
 
 ## Mengubah atau menambah token
 
