@@ -22,11 +22,17 @@ src/
   components/
     ui/button.tsx      Button, ButtonLink
     ui/form.tsx        Field, Input, Textarea, Select, Checkbox, Radio, Switch
+    ui/mobile-nav.tsx  menu hamburger untuk ponsel
     theme-toggle.tsx   pilihan Terang / Gelap / Sistem
+    logo-group.tsx     deretan logo di header (daftar logo diatur di sini)
   lib/theme.ts         logika tema
 eslint/
   design-tokens.mjs    aturan lint: class wajib memakai token design system
 ```
+
+## Mengganti logo
+
+Logo header ada di `public/logos/` (`logo-1.svg`, `logo-2.svg`, `logo-3.svg`, saat ini masih placeholder). Ganti file-nya dengan logo asli (SVG atau PNG). Kalau nama file, jumlah, atau ukuran aslinya berbeda, sesuaikan daftar `logos` di `src/components/logo-group.tsx` (`src`, `alt`, `width`, `height`).
 
 ## Perintah
 

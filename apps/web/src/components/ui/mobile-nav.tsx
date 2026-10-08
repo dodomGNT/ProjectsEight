@@ -15,11 +15,14 @@ export function MobileNav({
   links,
   footer,
   label = "Menu",
+  showLabel = false,
 }: {
   links: NavLink[];
   /** Isi tambahan di bawah daftar link, mis. tombol GitHub */
   footer?: ReactNode;
   label?: string;
+  /** Tampilkan tulisan label di samping ikon (mis. saat menu ada di baris sendiri) */
+  showLabel?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const panelId = useId();
@@ -61,7 +64,8 @@ export function MobileNav({
       <Button
         ref={buttonRef}
         variant="ghost"
-        size="icon"
+        size={showLabel ? "md" : "icon"}
+        className={showLabel ? "-ml-4" : ""}
         aria-label={open ? `Tutup ${label.toLowerCase()}` : `Buka ${label.toLowerCase()}`}
         aria-expanded={open}
         aria-controls={panelId}
@@ -70,6 +74,7 @@ export function MobileNav({
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
           {open ? <path d="M6 6l12 12M18 6 6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
         </svg>
+        {showLabel && <span aria-hidden>{label}</span>}
       </Button>
 
       <div

@@ -103,6 +103,15 @@ Aturan:
   - Jangan membuat menu hamburger sendiri; kalau butuh perilaku baru, kembangkan `MobileNav`.
 - **Navigasi dalam satu halaman yang panjang** (mis. daftar section di `/design`): boleh tetap berjajar dan bisa digeser horizontal (`overflow-x-auto`), asalkan tetap terlihat di ponsel.
 
+### Header dengan logo
+
+- Logo di header memakai `LogoGroup` (`src/components/logo-group.tsx`). File logo ada di `public/logos/`; daftar logo (file, alt, ukuran asli) diatur di komponen itu. Tinggi logo 24px di ponsel, 28px mulai `sm:`; jangan lebih kecil dari 24px.
+- **Logo dan navigasi tidak boleh bertumpuk atau berdesakan**:
+  - Desktop (`lg:` ke atas): satu baris, logo di kiri, lalu menu, lalu aksi (tema, GitHub) di kanan.
+  - Di bawah `lg`: dua baris. Baris 1 logo; baris 2 navigasi dengan garis pemisah (`border-t`). Tablet (`md:`) link berjajar; ponsel `MobileNav` dengan `showLabel` (tombol "☰ Menu").
+- Kalau logo atau link bertambah sehingga satu baris tidak muat di 1024px, naikkan breakpoint satu-baris (mis. `lg:` → `xl:`), jangan mengecilkan logo.
+- Contoh lengkap: header di `src/app/page.tsx`.
+
 Lebar tetap dan kolom grid ber-px tanpa breakpoint **dicek otomatis oleh lint**.
 
 ## Komponen

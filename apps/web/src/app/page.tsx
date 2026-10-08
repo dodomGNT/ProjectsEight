@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { LogoGroup } from "@/components/logo-group";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ButtonLink } from "@/components/ui/button";
 import { MobileNav } from "@/components/ui/mobile-nav";
@@ -187,32 +188,15 @@ export default function Home() {
   return (
     <div className="flex-1">
       <header className="sticky top-0 z-10 border-b border-border bg-background/80 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center gap-6 px-4 py-2 md:px-8">
-          <Link href="/" className="shrink-0 py-2 text-body font-bold">
-            ProjectsEight
-          </Link>
-          <nav aria-label="Navigasi utama" className="hidden flex-1 gap-6 md:flex">
-            {navLinks.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className="py-2 text-body-sm text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {l.label}
-              </Link>
-            ))}
-          </nav>
-          <div className="ml-auto flex items-center gap-3 md:ml-0">
-            <ThemeToggle />
-            {/* Dibungkus supaya `hidden` tidak kalah oleh `inline-flex` milik tombol */}
-            <div className="hidden sm:block">
-              <ButtonLink href={REPO_URL} size="sm" variant="outline">
-                <Icon path={icons.github} /> GitHub
-              </ButtonLink>
-            </div>
-            {/* Di bawah md, navigasi pindah ke menu hamburger */}
+        {/* Desktop (lg): satu baris. Tablet & ponsel: baris logo, lalu baris navigasi di bawahnya */}
+        <div className="mx-auto flex max-w-6xl flex-col px-4 md:px-8 lg:flex-row lg:items-center lg:gap-8">
+          <LogoGroup className="lg:shrink-0" />
+
+          <div className="-mx-4 flex items-center gap-6 border-t border-border px-4 py-1 md:-mx-8 md:px-8 lg:mx-0 lg:flex-1 lg:border-0 lg:px-0 lg:py-2">
+            {/* Ponsel: menu hamburger */}
             <div className="md:hidden">
               <MobileNav
+                showLabel
                 links={navLinks}
                 footer={
                   <ButtonLink href={REPO_URL} variant="outline" className="w-full">
@@ -220,6 +204,29 @@ export default function Home() {
                   </ButtonLink>
                 }
               />
+            </div>
+
+            {/* Tablet & desktop: menu berjajar */}
+            <nav aria-label="Navigasi utama" className="hidden flex-1 gap-6 md:flex">
+              {navLinks.map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  className="py-2 text-body-sm text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {l.label}
+                </Link>
+              ))}
+            </nav>
+
+            <div className="ml-auto flex items-center gap-3">
+              <ThemeToggle />
+              {/* Dibungkus supaya `hidden` tidak kalah oleh `inline-flex` milik tombol */}
+              <div className="hidden sm:block">
+                <ButtonLink href={REPO_URL} size="sm" variant="outline">
+                  <Icon path={icons.github} /> GitHub
+                </ButtonLink>
+              </div>
             </div>
           </div>
         </div>
