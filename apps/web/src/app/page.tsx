@@ -242,7 +242,7 @@ export default function Home() {
           id="font"
           overline="01 · Font family"
           title="Font"
-          description="Dua keluarga font: sans untuk semua teks, mono untuk kode. Font dimuat lewat next/font di src/app/layout.tsx."
+          description="Dua keluarga font: Atkinson Hyperlegible Next untuk semua teks (dipilih karena setiap huruf mudah dibedakan), mono untuk kode. Font dimuat lewat next/font di src/app/layout.tsx."
         >
           <Link
             href="/fonts"
@@ -252,7 +252,7 @@ export default function Home() {
           </Link>
           <div className="grid gap-6 md:grid-cols-2">
             {[
-              { name: "Geist Sans", className: "font-sans", usage: "Semua teks: judul, paragraf, tombol" },
+              { name: "Atkinson Hyperlegible Next", className: "font-sans", usage: "Semua teks: judul, paragraf, tombol" },
               { name: "Geist Mono", className: "font-mono", usage: "Kode, angka teknis, nama file" },
             ].map((font) => (
               <div key={font.name} className="rounded-2xl border border-border p-6 md:p-8">

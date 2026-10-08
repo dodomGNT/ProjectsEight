@@ -35,7 +35,7 @@ const sansFonts = [
   {
     name: "Atkinson Hyperlegible Next",
     font: atkinson,
-    tag: "Paling mudah dibaca",
+    tag: "Dipakai sekarang · paling mudah dibaca",
     why: "Dirancang Braille Institute khusus untuk pembaca dengan penglihatan rendah. Setiap huruf yang mirip (I l 1, O 0, b d) sengaja dibuat berbeda.",
     best: "Aplikasi untuk semua kalangan, termasuk orang tua; teks panjang; form.",
   },
@@ -70,7 +70,7 @@ const sansFonts = [
   {
     name: "Geist",
     font: geist,
-    tag: "Yang dipakai sekarang",
+    tag: "Sebelumnya dipakai",
     why: "Bawaan Next.js. Rapi dan modern, tapi agak sempit, sehingga sedikit kurang nyaman di ukuran kecil dibanding pilihan lain.",
     best: "Sebagai pembanding.",
   },
@@ -79,7 +79,7 @@ const sansFonts = [
 const monoFonts = [
   { name: "JetBrains Mono", font: jetbrains, why: "Dibuat untuk membaca kode berjam-jam. Huruf kecil tinggi, 0 bergaris." },
   { name: "Atkinson Hyperlegible Mono", font: atkinsonMono, why: "Pasangan mono dari Atkinson Hyperlegible Next." },
-  { name: "Geist Mono", font: geistMono, why: "Yang dipakai sekarang." },
+  { name: "Geist Mono", font: geistMono, why: "Yang dipakai sekarang untuk kode." },
 ];
 
 const legibility = "Il1| O0o rn m 5S 8B 6b g9 a@";
