@@ -24,6 +24,7 @@ File rule: `CLAUDE.md` (root) untuk aturan umum, `apps/web/CLAUDE.md` untuk desa
 - **Database**: ubah tabel di `apps/api/src/db/schema.ts`, lalu `bun run db:generate && bun run db:migrate` dari `apps/api`. Jangan mengedit file di `apps/api/drizzle/` secara manual, kecuali migrasi custom (`drizzle-kit generate --custom`).
 - **NestJS** memakai ESM: import lokal wajib berakhiran `.js` (`'./db/db.module.js'`).
 - **Package manager**: Bun (`bun add`, `bunx`), bukan npm/yarn.
+- **Plugin Claude Code** untuk project ini ada di `.claude/settings.json` (dari marketplace resmi `anthropics/claude-plugins-official`): `superpowers` (alur kerja: brainstorming, rencana, TDD, debugging, review) dan `frontend-design` (ide tampilan; tetap tunduk pada aturan desain di `apps/web/CLAUDE.md`). Pengaturan pribadi di `.claude/settings.local.json` (tidak di-commit).
 
 ## Perintah
 

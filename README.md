@@ -14,6 +14,21 @@ Template monorepo: **Turborepo + Next.js + NestJS + Drizzle + PostgreSQL (pgvect
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) (atau OrbStack), dalam keadaan menyala
 - [GitHub CLI](https://cli.github.com) (`gh`), untuk membuat project dari template
 
+## Plugin Claude Code
+
+Project ini menyarankan dua plugin dari marketplace resmi Anthropic (diatur di `.claude/settings.json`):
+
+- **superpowers**: brainstorming, rencana kerja, TDD, debugging sistematis, dan code review
+- **frontend-design**: membantu merancang tampilan (tetap mengikuti design system di `apps/web/CLAUDE.md`)
+
+Saat membuka project ini pertama kali di Claude Code, kamu akan diminta mempercayai folder project; setelah itu marketplace dan plugin di atas ditawarkan untuk dipasang. Bisa juga dipasang manual:
+
+```bash
+claude plugin marketplace add anthropics/claude-plugins-official
+claude plugin install superpowers@claude-plugins-official
+claude plugin install frontend-design@claude-plugins-official
+```
+
 ## Membuat project baru dari template
 
 ```bash
