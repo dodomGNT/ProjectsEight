@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# web
 
-## Getting Started
+Frontend ProjectsEight: **Next.js 16** (App Router) + **Tailwind CSS v4**.
 
-First, run the development server:
+Cara menjalankan, setup, dan `.env` ada di [README utama](../../README.md). Aturan desain ada di [CLAUDE.md](./CLAUDE.md).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Halaman
+
+| Alamat | File | Isi |
+|---|---|---|
+| `/` | `src/app/page.tsx` | Landing page |
+| `/design` | `src/app/design/page.tsx` | Dokumentasi design system (tipografi, warna, spasi, tombol, form) |
+| `/fonts` | `src/app/fonts/page.tsx` | Perbandingan pilihan font |
+
+## Struktur
+
+```
+src/
+  app/
+    globals.css        token design system (font, ukuran teks, warna)
+    layout.tsx         font, script tema, metadata
+  components/
+    ui/button.tsx      Button, ButtonLink
+    ui/form.tsx        Field, Input, Textarea, Select, Checkbox, Radio, Switch
+    theme-toggle.tsx   pilihan Terang / Gelap / Sistem
+  lib/theme.ts         logika tema
+eslint/
+  design-tokens.mjs    aturan lint: class wajib memakai token design system
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Perintah
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Dijalankan dari folder ini (`apps/web`):
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Perintah | Fungsi |
+|---|---|
+| `bun run dev` | Jalankan web saja (atau `bun dev` dari root untuk web + api) |
+| `bun run lint` | Cek kode, termasuk aturan design system |
+| `bunx tsc --noEmit` | Cek tipe TypeScript |
+| `bun run build` | Build production |
