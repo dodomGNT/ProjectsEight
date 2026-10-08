@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { LogoGroup } from "@/components/logo-group";
-import background from "./background.svg";
+import background from "./background.png";
 import { LoginForm } from "./login-form";
 
 export const metadata: Metadata = {
@@ -13,24 +13,26 @@ export const metadata: Metadata = {
 export default function LoginPage() {
   return (
     <div className="relative isolate flex min-h-dvh flex-1 flex-col">
-      {/* Latar: siluet Kantor Pusat Bank Indonesia (./background.svg).
+      {/* Latar: ./background.png (gedung di sisi kanan gambar).
           Di-import (bukan dari public/) supaya alamatnya berisi hash isi file: setiap gambar diganti,
-          browser pasti mengambil versi baru dan tidak memakai cache lama.
-          object-position 37% menjaga menara kembar (di 37% lebar gambar) tetap terlihat di layar sempit. */}
+          browser pasti mengambil versi baru dan tidak memakai cache lama. Next.js otomatis
+          mengecilkan & mengonversi PNG ini (WebP/AVIF) sesuai ukuran layar.
+          object-position 75% menjaga gedung tetap terlihat di layar sempit. */}
       <Image
         src={background}
         alt=""
         fill
         priority
+        placeholder="blur"
         sizes="100vw"
-        className="-z-10 object-cover object-[37%_100%]"
+        className="-z-10 object-cover object-[75%_50%]"
       />
       {/* Penggelap latar supaya teks form terbaca (kontras ≥ 4.5:1), tanpa kartu di belakang form.
-          Ponsel: rata. Desktop: gelap di kanan (area form), memudar ke kiri. */}
+          Ponsel: gelap di bawah (area form), lebih terang di atas. Desktop: gelap di kanan (area form), memudar ke kiri. */}
       <div
         aria-hidden
         data-theme="dark"
-        className="absolute inset-0 -z-10 bg-background/60 md:bg-transparent md:bg-linear-to-l md:from-background/85 md:via-background/60 md:to-transparent"
+        className="absolute inset-0 -z-10 bg-linear-to-t from-background/90 via-background/85 to-background/55 md:bg-linear-to-l md:from-background/95 md:via-background/80 md:to-transparent"
       />
 
       {/* Latar selalu gelap, jadi area ini memakai warna tema gelap di mode apa pun.

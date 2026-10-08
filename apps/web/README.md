@@ -33,7 +33,7 @@ eslint/
 
 ## Mengganti latar halaman login
 
-Latar `/login` ada di `src/app/login/background.svg` (di-import oleh `src/app/login/page.tsx`): siluet Kantor Pusat Bank Indonesia (menara kembar Thamrin) dengan lambang BI kecil di puncak menara kiri. Untuk memakai gambar lain, ganti file tersebut; kalau formatnya bukan SVG (mis. `background.jpg`), ubah juga baris `import background from "./background.svg"` di `src/app/login/page.tsx`. Gambar dipotong otomatis supaya memenuhi layar (`object-cover`), jadi pakai gambar yang bagian pentingnya ada di tengah.
+Latar `/login` ada di `src/app/login/background.png` (di-import oleh `src/app/login/page.tsx`; Next.js otomatis mengecilkan ukurannya). Untuk memakai gambar lain, ganti file tersebut; kalau formatnya berbeda (mis. `background.jpg`), ubah juga baris `import background from "./background.png"` di `src/app/login/page.tsx`. Gambar dipotong otomatis supaya memenuhi layar (`object-cover`); di ponsel yang terlihat bagian kanan-tengah gambar (`object-[75%_50%]`). Setelah mengganti gambar, cek ulang keterbacaan teks form.
 
 ## Mengganti logo
 
