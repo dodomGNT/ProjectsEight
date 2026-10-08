@@ -8,6 +8,9 @@ const fontSans = Atkinson_Hyperlegible_Next({
   variable: "--font-atkinson",
   subsets: ["latin", "latin-ext"],
   style: ["normal", "italic"],
+  // Next.js belum punya data metrik font ini untuk membuat font cadangan otomatis
+  adjustFontFallback: false,
+  fallback: ["ui-sans-serif", "system-ui", "sans-serif"],
 });
 
 const geistMono = Geist_Mono({
