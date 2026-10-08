@@ -86,7 +86,7 @@ const textStyles = [
   { className: "italic", label: "Italic", usage: "Istilah asing, kutipan" },
   { className: "underline underline-offset-4", label: "Underline", usage: "Link di dalam paragraf" },
   { className: "line-through", label: "Line-through", usage: "Harga coret, item selesai" },
-  { className: "uppercase tracking-widest", label: "Uppercase", usage: "Overline, badge" },
+  { className: "uppercase", label: "Uppercase", usage: "Overline, badge" },
   { className: "tabular-nums", label: "Tabular nums 1.234.567", usage: "Angka di tabel, harga" },
   { className: "truncate", label: "Teks yang terlalu panjang akan dipotong dengan tanda elipsis di akhir baris", usage: "Judul di card, nama file" },
 ];
@@ -260,6 +260,7 @@ export default function Home() {
                   <p className="text-h4">{font.name}</p>
                   <code className="font-mono text-caption text-primary">{font.className}</code>
                 </div>
+                {/* eslint-disable-next-line design/tokens -- spesimen font besar khusus halaman dokumentasi */}
                 <p className={`${font.className} mt-6 text-[5rem] leading-none font-semibold`}>Aa</p>
                 <p className={`${font.className} mt-6 text-body break-all text-muted-foreground`}>
                   ABCDEFGHIJKLMNOPQRSTUVWXYZ

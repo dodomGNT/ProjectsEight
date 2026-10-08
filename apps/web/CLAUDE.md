@@ -10,6 +10,9 @@ Semua UI wajib mengikuti design system. Sumber kebenarannya:
 
 Kalau sebuah kebutuhan tidak bisa dipenuhi dengan token/komponen yang ada, **tanya user dulu**. Jangan menambah nilai baru diam-diam.
 
+Aturan tipografi, warna, dan spasi arbitrary di bawah **dicek otomatis oleh `bun run lint`** (rule `design/tokens`, file `eslint/design-tokens.mjs`). Pengecualian hanya untuk halaman dokumentasi, dengan komentar beralasan:
+`{/* eslint-disable-next-line design/tokens -- alasan */}`. Jangan mematikan rule ini untuk kode aplikasi.
+
 ## Tipografi
 
 Hanya pakai class skala teks ini. Satu class sudah mengatur ukuran, line-height, letter-spacing, dan weight.
@@ -61,7 +64,7 @@ Dilarang: hex/rgb langsung (`#fff`, `bg-[#123456]`), palet bawaan Tailwind (`zin
 
 ## Spasi, ukuran, sudut
 
-- Spasi (padding, margin, gap) dari skala 4px: `1 2 3 4 6 8 12 16 24` (= 4–96px). Hindari nilai lain dan arbitrary `p-[13px]`.
+- Spasi (padding, margin, gap) pakai skala Tailwind (kelipatan 4px: `p-4` = 16px). Utamakan `1 2 3 4 6 8 12 16 24`; `0.5` dan `1.5` untuk jarak sangat kecil. Nilai arbitrary seperti `p-[13px]` dilarang.
 - Lebar konten halaman: `mx-auto max-w-6xl px-4 md:px-8`.
 - Sudut: `rounded-md` chip/kode kecil · `rounded-lg` tombol & input · `rounded-xl` / `rounded-2xl` card & panel · `rounded-full` badge/avatar.
 - Arbitrary value untuk layout (mis. `grid-cols-[260px_1fr]`) boleh. Untuk tipografi dan warna tidak boleh.
@@ -91,5 +94,5 @@ Komponen baru yang dipakai di lebih dari satu tempat: taruh di `src/components/u
 ## Sebelum selesai
 
 - Cek tampilan di tema **terang dan gelap**, dan di lebar **390px** (ponsel)
-- Jalankan `bun run lint` di `apps/web`
+- Jalankan `bun run lint` di `apps/web` dan pastikan tidak ada error `design/tokens`
 - Kalau `bun dev` sedang jalan, **jangan jalankan `next build` di folder ini**: cache dev server bisa rusak dan perubahan tidak muncul. Cek tipe dengan `bunx tsc --noEmit`, atau build di salinan terpisah.

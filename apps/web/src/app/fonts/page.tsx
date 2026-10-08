@@ -136,7 +136,7 @@ export default function FontsPage() {
               <dl className="mt-6 grid gap-3 rounded-xl bg-muted p-4">
                 <div>
                   <dt className="text-overline uppercase text-muted-foreground">Uji keterbacaan</dt>
-                  <dd className="mt-1 text-h4 tracking-wide">{legibility}</dd>
+                  <dd className="mt-1 text-h4">{legibility}</dd>
                 </div>
                 <div>
                   <dt className="text-overline uppercase text-muted-foreground">Angka</dt>
