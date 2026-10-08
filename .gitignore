@@ -5,3 +5,4 @@ dist
 .next
 .turbo
 .DS_Store
+*.tsbuildinfo
