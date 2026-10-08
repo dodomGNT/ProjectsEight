@@ -10,6 +10,8 @@ Semua UI wajib mengikuti design system. Sumber kebenarannya:
 
 Kalau sebuah kebutuhan tidak bisa dipenuhi dengan token/komponen yang ada, **tanya user dulu**. Jangan menambah nilai baru diam-diam.
 
+**Skill desain** (mis. plugin `frontend-design`, `ui-ux-pro-max`, `design`) boleh dipakai untuk ide tata letak dan komposisi, tetapi **aturan di file ini tetap yang utama**: font, ukuran teks, warna, spasi, dan komponen harus dari design system ini. Jangan mengganti font, menambah palet warna, atau membuat komponen tombol/form baru karena saran skill.
+
 Aturan tipografi, warna, dan spasi arbitrary di bawah **dicek otomatis oleh `bun run lint`** (rule `design/tokens`, file `eslint/design-tokens.mjs`). Pengecualian hanya untuk halaman dokumentasi, dengan komentar beralasan:
 `{/* eslint-disable-next-line design/tokens -- alasan */}`. Jangan mematikan rule ini untuk kode aplikasi.
 
