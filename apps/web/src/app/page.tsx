@@ -190,7 +190,8 @@ export default function Home() {
       <header className="sticky top-0 z-10 border-b border-border bg-background/80 backdrop-blur">
         {/* Desktop (lg): satu baris. Tablet & ponsel: baris logo, lalu baris navigasi di bawahnya */}
         <div className="mx-auto flex max-w-6xl flex-col px-4 md:px-8 lg:flex-row lg:items-center lg:gap-8">
-          <LogoGroup className="lg:shrink-0" />
+          {/* Ponsel: logo di tengah. Tablet & desktop: rata kiri */}
+          <LogoGroup className="self-center md:self-start lg:self-auto lg:shrink-0" />
 
           <div className="-mx-4 flex items-center gap-6 border-t border-border px-4 py-1 md:-mx-8 md:px-8 lg:mx-0 lg:flex-1 lg:border-0 lg:px-0 lg:py-2">
             {/* Ponsel: menu hamburger */}

@@ -109,6 +109,7 @@ Aturan:
 - **Logo dan navigasi tidak boleh bertumpuk atau berdesakan**:
   - Desktop (`lg:` ke atas): satu baris, logo di kiri, lalu menu, lalu aksi (tema, GitHub) di kanan.
   - Di bawah `lg`: dua baris. Baris 1 logo; baris 2 navigasi dengan garis pemisah (`border-t`). Tablet (`md:`) link berjajar; ponsel `MobileNav` dengan `showLabel` (tombol "☰ Menu").
+  - Posisi logo: **di tengah** di ponsel (di bawah `md`), **rata kiri** mulai `md:`. Yang di-tengahkan grup logonya (`self-center`), bukan dibuat selebar layar, supaya area klik hanya di logo.
 - Kalau logo atau link bertambah sehingga satu baris tidak muat di 1024px, naikkan breakpoint satu-baris (mis. `lg:` → `xl:`), jangan mengecilkan logo.
 - Contoh lengkap: header di `src/app/page.tsx`.
 
