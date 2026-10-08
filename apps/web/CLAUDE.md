@@ -56,7 +56,7 @@ Hanya pakai warna token. Warna otomatis berganti di tema gelap, jadi **jangan pa
 | `bg-background` / `text-foreground` | Latar halaman / teks utama |
 | `bg-muted` / `text-muted-foreground` | Latar card & area sekunder / teks sekunder |
 | `border-border` | Semua garis, pembatas, outline |
-| `bg-primary` / `text-primary-foreground` / `text-primary` | Aksi utama, link, elemen aktif |
+| `bg-primary` / `text-primary-foreground` / `text-primary` | Aksi utama, link, elemen aktif. **Biru Bank Indonesia** `#005596` (diambil dari logo resmi BI); tema gelap `#4d9ad6` (biru BI yang lebih terang supaya terbaca). Jangan diganti tanpa persetujuan user. |
 | `text-accent` / `bg-accent` | Highlight, badge |
 | `bg-destructive` / `text-destructive` | Hapus, error |
 
@@ -127,7 +127,9 @@ Lebar tetap dan kolom grid ber-px tanpa breakpoint **dicek otomatis oleh lint**.
 
 Satu layar penuh dengan gambar latar (contoh: `src/app/login/page.tsx`):
 
-- **Latar**: `next/image` dengan `fill`, `sizes="100vw"`, `priority`, `alt=""` (dekoratif), `className="-z-10 object-cover"`; wadah halaman `relative isolate min-h-dvh`. File latar di `public/login/background.svg`, boleh diganti foto (jpg/png/webp) dengan menyesuaikan `src`.
+- **Latar**: `next/image` dengan `fill`, `sizes="100vw"`, `priority`, `alt=""` (dekoratif), `className="-z-10 object-cover object-[37%_100%]"`; wadah halaman `relative isolate min-h-dvh`. File latar di `public/login/background.svg`, boleh diganti foto (jpg/png/webp) dengan menyesuaikan `src`.
+- **Isi latar saat ini**: langit gradasi biru BI + **siluet Kantor Pusat Bank Indonesia** (menara kembar Jl. M.H. Thamrin, disederhanakan dari foto referensi) + gedung lama beratap lebar + kota samar. Menara ada di ±37% lebar gambar; `object-[37%_100%]` menjaga menara tetap terlihat di layar sempit.
+- **Logo BI di latar** hanya berupa lambang lingkaran BI kecil yang menempel di gedung (pita kaca puncak menara kiri), diambil dari file logo resmi (Wikimedia Commons, public domain, merek terdaftar BI), bukan digambar ulang. Tidak ada logo BI besar yang berdiri sendiri di latar. Posisinya tidak boleh berada di belakang teks form (cek kontras di 390px dan 1280px).
 - **Tanpa latar putih**: area logo dan form dibungkus `<div data-theme="dark" className="… text-foreground">`, karena gambar latarnya selalu gelap. Semua warna di dalamnya otomatis memakai token tema gelap, di mode terang maupun gelap.
 - **Logo**: `LogoGroup` langsung di atas gambar latar, tanpa kotak/latar.
 - **Posisi**: ponsel → logo di tengah atas, form selebar layar di bawah. Mulai `md:` → logo kiri atas (`md:self-start`), form kanan bawah (`md:self-end md:max-w-md`). Wadah `flex flex-col justify-between`, jadi logo dan form tidak pernah bertumpuk.

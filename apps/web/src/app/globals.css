@@ -25,7 +25,7 @@
   --muted: #f4f4f5;
   --muted-foreground: #71717a;
   --border: #e4e4e7;
-  --primary: #4f46e5;
+  --primary: #005596; /* biru Bank Indonesia, diambil dari logo resmi BI */
   --primary-foreground: #ffffff;
   --accent: #f59e0b;
   --destructive: #dc2626;
@@ -44,7 +44,7 @@
   --muted: #18181b;
   --muted-foreground: #a1a1aa;
   --border: #27272a;
-  --primary: #818cf8;
+  --primary: #4d9ad6; /* biru BI versi terang, supaya terbaca di latar gelap */
   --primary-foreground: #0a0a0a;
   --accent: #fbbf24;
   --destructive: #f87171;

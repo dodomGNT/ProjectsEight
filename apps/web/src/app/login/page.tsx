@@ -12,14 +12,15 @@ export const metadata: Metadata = {
 export default function LoginPage() {
   return (
     <div className="relative isolate flex min-h-dvh flex-1 flex-col">
-      {/* Latar: ganti file di public/login/ untuk memakai foto/gambar sendiri */}
+      {/* Latar: siluet Kantor Pusat Bank Indonesia (public/login/background.svg).
+          object-position 37% menjaga menara kembar (di 37% lebar gambar) tetap terlihat di layar sempit. */}
       <Image
         src="/login/background.svg"
         alt=""
         fill
         priority
         sizes="100vw"
-        className="-z-10 object-cover"
+        className="-z-10 object-cover object-[37%_100%]"
       />
       {/* Penggelap latar supaya teks form terbaca (kontras ≥ 4.5:1), tanpa kartu di belakang form.
           Ponsel: rata. Desktop: gelap di kanan (area form), memudar ke kiri. */}
