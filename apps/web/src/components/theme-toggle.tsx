@@ -1,7 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { THEME_CHANGE_EVENT, THEME_STORAGE_KEY, type ThemePreference } from "@/lib/theme";
+import { applyTheme, THEME_CHANGE_EVENT, THEME_STORAGE_KEY, type ThemePreference } from "@/lib/theme";
 
 function getPreference(): ThemePreference {
   try {
@@ -17,7 +17,9 @@ function setPreference(pref: ThemePreference) {
     if (pref === "system") localStorage.removeItem(THEME_STORAGE_KEY);
     else localStorage.setItem(THEME_STORAGE_KEY, pref);
   } catch {}
-  // Script tema di <head> mendengarkan event ini dan memasang data-theme
+  // Langsung pasang tema, tanpa bergantung pada script di <head>
+  // (script itu hanya jalan saat halaman dimuat penuh, bukan saat hot reload)
+  applyTheme(pref);
   window.dispatchEvent(new Event(THEME_CHANGE_EVENT));
 }
 

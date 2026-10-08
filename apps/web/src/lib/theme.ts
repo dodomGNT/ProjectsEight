@@ -23,3 +23,11 @@ export const themeScript = `(function(){
   window.addEventListener("${THEME_CHANGE_EVENT}", apply);
   window.addEventListener("storage", apply);
 })()`;
+
+/** Pasang data-theme di <html> sesuai pilihan (dipakai tombol tema di browser). */
+export function applyTheme(pref: ThemePreference) {
+  const dark =
+    pref === "dark" ||
+    (pref === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+}
