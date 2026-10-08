@@ -97,10 +97,10 @@
   --text-h4--line-height: 1.4;
   --text-h4--font-weight: 600;
 
-  --text-body-lg: 1.125rem; /* 18px */
+  --text-body-lg: 1rem; /* 16px */
   --text-body-lg--line-height: 1.6;
 
-  --text-body: 1rem; /* 16px */
+  --text-body: 0.9375rem; /* 15px */
   --text-body--line-height: 1.6;
 
   --text-body-sm: 0.875rem; /* 14px */
