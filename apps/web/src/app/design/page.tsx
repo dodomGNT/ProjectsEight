@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Checkbox, Field, Input, Radio, Select, Switch, Textarea } from "@/components/ui/form";
+import { MobileNav } from "@/components/ui/mobile-nav";
 
 const typeScale = [
   {
@@ -130,6 +131,7 @@ const sections = [
   { id: "spasi", label: "Spasi & radius" },
   { id: "tombol", label: "Tombol" },
   { id: "form", label: "Form" },
+  { id: "navigasi", label: "Navigasi" },
 ];
 
 const buttonVariants = [
@@ -549,6 +551,66 @@ import { Field, Input, Select, Checkbox, Switch } from "@/components/ui/form";
 
 <Checkbox name="setuju" label="Saya setuju dengan syarat & ketentuan" />
 <Switch name="newsletter" label="Berlangganan newsletter" />
+`}</Code>
+          </div>
+        </Section>
+        <Section
+          id="navigasi"
+          overline="09 · Navigation"
+          title="Navigasi"
+          description="Di layar lebar (md, 768px ke atas) menu tampil berjajar di header. Di layar kecil, menu pindah ke tombol hamburger memakai MobileNav dari src/components/ui/mobile-nav.tsx."
+        >
+          <div className="grid gap-6 lg:grid-cols-2">
+            <Demo title="Contoh header ponsel (klik ☰)">
+              {/* Header tiruan: panel menu muncul di bawahnya */}
+              <div className="relative w-full rounded-xl border border-border">
+                <div className="flex items-center justify-between px-4 py-2">
+                  <span className="text-body font-bold">Logo</span>
+                  <MobileNav
+                    links={[
+                      { href: "#navigasi", label: "Beranda" },
+                      { href: "#navigasi", label: "Produk" },
+                      { href: "#navigasi", label: "Kontak" },
+                    ]}
+                  />
+                </div>
+              </div>
+            </Demo>
+            <div className="grid content-start gap-3 rounded-2xl border border-border p-6 text-body-sm">
+              <p className="font-semibold">Perilaku bawaan</p>
+              <ul className="grid list-disc gap-1 pl-5 text-muted-foreground">
+                <li>Tertutup otomatis saat link diklik, tombol Esc ditekan, atau klik di luar header</li>
+                <li>Tertutup otomatis saat layar melebar sampai menu desktop tampil</li>
+                <li>Fokus pindah ke link pertama saat dibuka, kembali ke tombol saat Esc</li>
+                <li>Pembaca layar tahu status menu lewat aria-expanded</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="mt-6">
+            <Code>{`
+import { MobileNav } from "@/components/ui/mobile-nav";
+
+const navLinks = [
+  { href: "/", label: "Beranda" },
+  { href: "/produk", label: "Produk" },
+];
+
+<header className="sticky top-0 border-b border-border bg-background">
+  <div className="mx-auto flex max-w-6xl items-center gap-6 px-4 py-2 md:px-8">
+    <Link href="/">Logo</Link>
+
+    {/* Desktop: menu berjajar */}
+    <nav className="hidden gap-6 md:flex">
+      {navLinks.map((l) => <Link key={l.href} href={l.href} className="py-2 ...">{l.label}</Link>)}
+    </nav>
+
+    {/* Ponsel: hamburger (dibungkus supaya bisa disembunyikan) */}
+    <div className="ml-auto md:hidden">
+      <MobileNav links={navLinks} />
+    </div>
+  </div>
+</header>
 `}</Code>
           </div>
         </Section>

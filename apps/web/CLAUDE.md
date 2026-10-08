@@ -92,6 +92,17 @@ Aturan:
 - Interaksi yang hanya muncul saat `hover:` harus punya cara lain di layar sentuh (tetap terlihat, atau lewat tap/focus).
 - Gambar: `next/image` dengan `sizes`, atau `max-w-full h-auto`.
 
+### Navigasi
+
+**Navigasi tidak boleh hilang di ponsel.** Kalau menu header disembunyikan di layar kecil, wajib ada penggantinya:
+
+- **Menu situs** (header halaman, link ke halaman/section lain): di `md:` ke atas tampil berjajar, di bawah `md` pakai **hamburger `MobileNav`**.
+  - Daftar link ditulis **sekali** sebagai array dan dipakai oleh menu desktop **dan** `MobileNav`, supaya isinya selalu sama.
+  - `MobileNav` ditaruh di dalam `<header>` yang `sticky`, dibungkus `<div className="md:hidden">`.
+  - Tombol/aksi penting dari header yang disembunyikan di ponsel (mis. GitHub, Login) dimasukkan ke prop `footer` milik `MobileNav`.
+  - Jangan membuat menu hamburger sendiri; kalau butuh perilaku baru, kembangkan `MobileNav`.
+- **Navigasi dalam satu halaman yang panjang** (mis. daftar section di `/design`): boleh tetap berjajar dan bisa digeser horizontal (`overflow-x-auto`), asalkan tetap terlihat di ponsel.
+
 Lebar tetap dan kolom grid ber-px tanpa breakpoint **dicek otomatis oleh lint**.
 
 ## Komponen
@@ -109,6 +120,7 @@ Selalu pakai komponen yang ada. Jangan membuat tombol/input dari elemen mentah d
   - Komponen: `Input`, `Textarea`, `Select`, `Checkbox`, `Radio`, `Switch`
   - Grup radio/checkbox pakai `<fieldset>` + `<legend>`
 - Tema: `ThemeToggle` dari `@/components/theme-toggle`
+- Navigasi ponsel: `MobileNav` dari `@/components/ui/mobile-nav` (lihat bagian Navigasi di bawah)
 
 Komponen baru yang dipakai di lebih dari satu tempat: taruh di `src/components/ui/`, ikuti pola yang ada (props `variant`/`size`, `className` bisa ditambah), lalu dokumentasikan di halaman `/design`.
 

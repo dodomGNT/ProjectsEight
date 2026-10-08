@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ButtonLink } from "@/components/ui/button";
+import { MobileNav } from "@/components/ui/mobile-nav";
 
 export const metadata: Metadata = {
   title: "ProjectsEight · Starter template full-stack",
@@ -10,6 +11,13 @@ export const metadata: Metadata = {
 };
 
 const REPO_URL = "https://github.com/dodomGNT/ProjectsEight";
+
+const navLinks = [
+  { href: "#stack", label: "Stack" },
+  { href: "#fitur", label: "Fitur" },
+  { href: "#mulai", label: "Cara mulai" },
+  { href: "/design", label: "Design system" },
+];
 
 /* ── Ikon (stroke mengikuti warna teks) ───────────────────────── */
 
@@ -184,12 +192,7 @@ export default function Home() {
             ProjectsEight
           </Link>
           <nav aria-label="Navigasi utama" className="hidden flex-1 gap-6 md:flex">
-            {[
-              { href: "#stack", label: "Stack" },
-              { href: "#fitur", label: "Fitur" },
-              { href: "#mulai", label: "Cara mulai" },
-              { href: "/design", label: "Design system" },
-            ].map((l) => (
+            {navLinks.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
@@ -206,6 +209,17 @@ export default function Home() {
               <ButtonLink href={REPO_URL} size="sm" variant="outline">
                 <Icon path={icons.github} /> GitHub
               </ButtonLink>
+            </div>
+            {/* Di bawah md, navigasi pindah ke menu hamburger */}
+            <div className="md:hidden">
+              <MobileNav
+                links={navLinks}
+                footer={
+                  <ButtonLink href={REPO_URL} variant="outline" className="w-full">
+                    <Icon path={icons.github} /> Buka di GitHub
+                  </ButtonLink>
+                }
+              />
             </div>
           </div>
         </div>
