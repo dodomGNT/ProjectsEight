@@ -34,7 +34,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       data-theme="light"
       // Script tema mengubah data-theme sebelum React hydrate
       suppressHydrationWarning
-      className={`${fontSans.variable} ${fontMono.variable} h-full antialiased`}
+      className={`${fontSans.variable} ${fontMono.variable} h-full antialiased motion-safe:scroll-smooth`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />

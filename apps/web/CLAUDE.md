@@ -173,6 +173,7 @@ Setiap komponen yang dipakai di lebih dari satu tempat wajib didokumentasikan di
 - Token: `animate-bounce-in` (di `globals.css`): elemen muncul dari bawah dengan sedikit pantulan, sekali saat tampil (±0,8 detik).
 - Selalu ditulis `motion-safe:animate-bounce-in`, supaya tidak berjalan untuk pengguna yang memilih "kurangi gerakan".
 - Pakai untuk elemen utama yang muncul (mis. form login), jangan untuk banyak elemen sekaligus atau animasi berulang.
+- Klik tautan anchor (`#stack`, dll.) meluncur halus lewat `motion-safe:scroll-smooth` di `<html>` (`layout.tsx`); heading section memakai `scroll-mt-24` supaya tidak tertutup header.
 
 ## Mengubah atau menambah token
 
